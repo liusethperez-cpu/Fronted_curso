@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(113, 116, 114);
+}
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+.contenedor-slider{
+    display: flex;
+    min-width: 650px; 
+    max-width: 1000px;
+    height: 50vh; 
+    margin: 0 auto;
+    overflow: hidden;
+    border: 5px solid rgb(45, 44, 44);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(76, 72, 69) ;
+}
+.elemento-slider{
+    flex:1;
+    /* flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0; */
+    min-width: 0;
+    object-fit: cover;
+    height: 100%;
+    transition: all 0.5s ease;
+    filter: grayscale(90%);
+}
+.elemento-slider:hover{
+    cursor: pointer;
+    flex: 3;
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
