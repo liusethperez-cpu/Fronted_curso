@@ -1,0 +1,48 @@
+body{
+background-color:rgb(188, 175, 175);
+margin: 0;
+padding: 0;
+}
+header{
+    background-color: rgb(231, 231, 216);
+    color: rgb(221, 175, 115);
+    padding: 1em 0;
+    text-align: center;
+}
+h1{
+    font-size: 3em;
+    margin: 0;
+}
+
+.nav-menu{
+list-style: none;
+background-color: rgb(217, 152, 67);
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+}
+
+.nav-menu li{
+    margin: 10px 15px;
+    padding: 10px;
+    transition: background-color 0.4s;
+    border-radius: 10px;
+    
+}
+
+.nav-menu li :hover{
+    background-color: rgb(207, 125, 66);
+    border-radius: 10px;
+}
+.nav-menu a{
+    text-decoration: none;
+    color: rgb(58, 5, 5);
+    display: inline-block;
+    transition: background-color 4s;
+}
+
+.nav-menu a :hover{
+    background-color: rgb(207, 125, 66);
+    border-radius: 10px;
+}
