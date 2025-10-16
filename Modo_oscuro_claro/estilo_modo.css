@@ -1,0 +1,45 @@
+/* estilos del modo claro  */
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #111111;
+    text-align: center;
+    padding: 50px;
+}  
+#selector-tema{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    background-color: #1e2023;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 6px #2e3239 ;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#selector-tema:hover{
+    opacity: 0.9;
+
+}
+
+/* Estilo modo oscuro (se sobreescribe) */
+/* se aplica cuando el body ba a tener la clase "dark-mode" */
+
+.dark-mode{
+    background-color: #1e2023;
+    color: #f0f0f0;
+}
+
+.dark-mode #selector-tema{
+    background-color: #f0f0f0;
+    color: #1e2023;
+    box-shadow: 0 4px 6px #cfcfcf ;
+}
