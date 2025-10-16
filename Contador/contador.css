@@ -57,3 +57,23 @@ body {
   #botonLike:hover {
     background-color: #654747;
   }
+
+  likes {
+      font-size: 16px;
+    }
+  
+    #botonLike {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    .likes {
+      font-size: 20px;
+      color: #333;
+    }
+    .descripcion {
+      font-size: 18px;
+      color: #444;
+    }
+
+  
+
