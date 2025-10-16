@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscripción - Hackathon F5</title>
+</head>
+<body>
+  <header>
+    <nav class="nav-menu">
+      <ul>
+        <li class="img-logo">
+          <a href="inicio.html">
+            <img class="logo-f5" src="/imagenes/SomosF5-logo.png" alt="Logo SomosF5" />
+          </a>
+        </li>
+        <li><a href="inicio.html">Inicio</a></li>
+        <li><a href="que-es.html">¿Qué es un Hackathon?</a></li>
+        <li><a href="inscribete.html">Inscríbete aquí</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="somosf5.html">Somos F5</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-container">
+      <header>
+        <h1>Inscripción al Hackathon F5</h1>
+        <p>¡Prepárate para innovar y crear soluciones increíbles!</p>
+      </header>
+
+      <form action="#" method="POST" id="registrationForm" novalidate>
+        <div class="form-group">
+          <label for="email">Correo Electrónico *</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="name">Nombre *</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="surname">Apellidos *</label>
+          <input type="text" id="surname" name="surname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Número de teléfono (Opcional)</label>
+          <input type="tel" id="phone" name="phone" pattern="[0-9+\s\-()]{6,}" placeholder="+34 600 000 000" />
+        </div>
+
+        <div class="form-group">
+          <label for="role">¿Cuál es tu rol principal?</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Selecciona tu perfil</option>
+            <option value="fullstack">Desarrollador/a Fullstack</option>
+            <option value="frontend">Desarrollador/a Frontend</option>
+            <option value="backend">Desarrollador/a Backend</option>
+            <option value="uxui">Diseñador/a UX/UI</option>
+            <option value="data">Analista de datos</option>
+            <option value="ia">Experto/a en IA</option>
+            <option value="marketing">Experto/a en Marketing Digital</option>
+            <option value="other">Otro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="motivation">¿Por qué quieres unirte a este hackathon?</label>
+          <textarea id="motivation" name="motivation" rows="5"
+            placeholder="Cuéntanos algo más sobre ti, cuándo terminaste tu formación, tus intereses, tus habilidades y lo que esperas aportar..."></textarea>
+        </div>
+
+        <fieldset class="form-group">
+          <legend>Acuerdos Legales</legend>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" name="terms" required />
+            <label for="terms">Acepto los <a href="#">términos y condiciones</a> del evento.</label>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="coc" name="coc" required />
+            <label for="coc">Me comprometo a respetar el <a href="#">código de conducta</a>.</label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="submit-btn">¡Inscribirme Ahora!</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hackathon. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
