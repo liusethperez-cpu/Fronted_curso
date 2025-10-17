@@ -1,3 +1,17 @@
+:root{
+  --page-bg: #efe9f8;        /* fondo de la página (lila suave) */
+  --card-bg: #ffffff;        /* fondo del formulario */
+  --muted: #7b8390;          /* texto secundario */
+  --text: #071024;           /* texto principal oscuro */
+  --border: #e6e9ee;         /* borde inputs */
+  --accent: #0b5fff;         /* color principal (botón/énfasis) */
+  --error: #d9534f;          /* color errores */
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --card-shadow: 0 10px 30px rgba(7,16,36,0.06);
+  --max-width: 760px;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 *{box-sizing:border-box}
 
 html,body{height:100%}
@@ -82,10 +96,254 @@ footer {
     font-weight: bold;
 }
 
-/* A partir de aquí empieza el formulario */
+/* Estilos para el contenedor del formulario */
 
-h1,p{
-  text-align:center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+/* Estilos del  formulario */
+.form-container{
+  width:100%;
+  max-width: var(--max-width);
+  background: var(--card-bg);
+  border-radius: calc(var(--radius-lg) + 4px);
+  padding: 32px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(7,16,36,0.03);
+  margin-bottom: 32px;
+}
+/* esto es para el header h1 y p */
+.form-container > header h1{
+  justify-self: center;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.form-container > header p{
+  justify-self: center;
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 20px;
 }
 
+/* Espacio entre textos */
+form { display: block; }
+.form-group,
+fieldset.form-group{
+  margin-bottom: 25px;
+}
+/* Label */
+label{
+  display:table-row;
+  font-weight:700;
+  margin-bottom:10px;
+  font-size:16px;
+  color: var(--text);
+}
+
+/* Inputs / select / textarea, aquí en el border le puedo quitar y agregar a la zona de textos */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea{
+  width:100%;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size:16px;
+  color: var(--text);
+  outline: none;
+  transition: box-shadow .15s ease, border-color .12s ease, transform .06s;
+  -webkit-appearance:none;
+}
+::placeholder{
+  color: #b6bcc3;
+  font-size:15px;
+}
+/* Select: flecha a la derecha 
+select{
+  background-image: url("data:image/svg+xml,%3Csvg width='18' height='10' viewBox='0 0 18 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l8 8 8-8' stroke='%239aa0a7' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position: right 16px center;
+  padding-right:48px;
+}*/
+
+/* focus */
+input:focus, select:focus, textarea:focus{
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(11,95,255,0.08);
+}
+/* caja de seleccionar y terminos y condiciones */ 
+.checkbox-group{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin:8px 0;
+}
+.checkbox-group input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin-top:4px;
+  accent-color: var(--accent);
+  justify-self: center;
+}
+/* Botón principal */
+.submit-btn{
+  justify-self: center;
+  display:flex;
+  background: linear-gradient(180deg, var(--accent), #634ce4);
+  color: white;
+  border: none;
+  padding:14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor:pointer;
+  font-size:15px;
+  box-shadow: 0 10px 30px rgba(2, 15, 40, 0.14);
+  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.submit-btn:hover{ transform: translateY(-2px) }
+.submit-btn:active{ transform: translateY(0) }
+.submit-btn[disabled]{ opacity:.6; cursor:not-allowed; }
+
+/* Mensajes de error (clase simple-error usada por tu JS) */
+.simple-error{
+  margin-top:8px;
+  color: var(--error);
+  font-size:13px;
+}
+
+/* Aplica borde y sombra suave en campos con error (si quieres añadir clase .error vía JS) */
+input.error, select.error, textarea.error{
+  border-color: var(--error);
+  box-shadow: 0 6px 18px rgba(217,83,79,0.06);
+}
+/* Barra de progreso visual (opcional) */
+.progress-dots{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+.progress-dots span{
+  flex:1;
+  height:6px;
+  border-radius: 6px;
+  background:#eee;
+}
+.progress-dots span.active{
+  background: var(--accent);
+}
+
+/* Animación del toast */
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+/* Estilo base del toast */
+#simple-toast, .toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(11, 95, 255, 0.18);
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: toastIn 0.5s ease forwards;
+}
+
+/* Cuando desaparece (tu JS puede añadir esta clase antes de eliminarlo) */
+.toast.hide {
+  animation: toastOut 0.4s ease forwards;
+}
+
+ /* Animación del toast */
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+/* --- Toast (mensaje emergente) --- */
+
+/* Cómo se ve el mensaje */
+.toast {
+  position: fixed;          /* se mantiene en la misma posición aunque hagas scroll */
+  top: 20px;                /* distancia desde arriba */
+  right: 20px;              /* distancia desde la derecha */
+  background-color: #0b5fff; /* color azul por defecto */
+  color: white;             /* texto blanco */
+  padding: 12px 16px;       /* espacio interno */
+  border-radius: 8px;       /* esquinas redondeadas */
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  opacity: 0;               /* empieza invisible */
+  transform: translateX(30px); /* empieza un poco desplazado a la derecha */
+  animation: aparecer 0.5s forwards; /* se aplica la animación al mostrarse */
+}
+
+/* Cuando se va a ocultar (tu JS añade .hide) */
+.toast.hide {
+  animation: desaparecer 0.4s forwards;
+}
+
+/* Ajustes responsive */
+@media (max-width:720px){
+  body{ padding:28px 14px; }
+  .form-container{ padding:22px; border-radius:12px; }
+  input[type="text"], input[type="email"], textarea, select{ padding:14px; font-size:15px; }
+  .form-container > header h1{ font-size:22px; }
+}
+
+/* Pequeña mejora visual para inputs en dispositivos de escritorio grandes */
+@media (min-width:1200px){
+  .form-container{ padding:40px; }
+  input[type="text"], input[type="email"], textarea, select{ padding:20px 22px; }
+}
