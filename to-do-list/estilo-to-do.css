@@ -1,0 +1,112 @@
+body{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0px;
+}
+.todo_app{
+    background-color: rgb(238, 212, 212);
+    padding: 2rem;
+    border-radius:10px ;
+    box-shadow: 0 4px 15px #1111111a;
+    width: 400px;
+    max-width: 90%;
+
+}
+h1{
+    text-align: center;
+    /* text-decoration-line: underline; para subrayar */
+    margin-top: 0;
+    color: #333;
+    font-size: 2rem;
+}
+h1{
+    text-align: center;
+    text-decoration-line: underline;
+}
+#tarea_input{
+    width: calc(100% - 85px); /*Calcula el espacio para el boton */
+    padding: 4px;
+    margin-right: 2px;
+    border-radius: 5px;
+    border: 1px solid #5d5a5a;
+}
+#agregarTarea{
+    background-color: #1313b7;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#agregarTarea:hover{
+    background-color: #0c0c8d;
+}
+#tareaLista{
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.task-item{
+    background-color: #ffffff;
+    border-left: 5px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.task-item span{
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* tarea completada */
+.task-item.completed{
+    border-left-color: #4caf50;
+    background-color: #fcf9f9;
+    opacity: 0.8;
+}
+
+.task-item.completed span{
+    text-decoration: line-through;
+    color: #888;
+}
+
+.task-item button{
+    background-color: #e74c3c;
+    margin-left: 5px;
+    font-weight: bold;
+    line-height: 1;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.completed-btn{
+    background-color: #4caf50;
+    color: #fff;
+}
+.completed-btn:hover{
+    background-color: #447247;
+
+}
+.delete-btn{
+    background-color: #c0392b;
+    color: #fff;
+}
+.delete-btn:hover{
+    background-color: #922b21;          
+}
