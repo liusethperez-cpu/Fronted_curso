@@ -1,29 +1,20 @@
 body{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: antiquewhite;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #F0F8FF;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     min-height: 100vh;
     margin: 0;
-    padding: 0px;
+    padding: 0;
 }
 .todo_app{
-    background-color: rgb(238, 212, 212);
+    background-color: #FFFFFF;
     padding: 2rem;
-    border-radius:10px ;
-    box-shadow: 0 4px 15px #1111111a;
-    width: 400px;
-    max-width: 90%;
-
-}
-h1{
-    text-align: center;
-    /* text-decoration-line: underline; para subrayar */
-    margin-top: 0;
-    color: #333;
-    font-size: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px #2D2B2B;
+    width: 90%;
+    max-width: 450px;
 }
 h1{
     text-align: center;
@@ -34,11 +25,11 @@ h1{
     padding: 4px;
     margin-right: 2px;
     border-radius: 5px;
-    border: 1px solid #5d5a5a;
+    border: 1px solid #5D5A5A;
 }
 #agregarTarea{
-    background-color: #1313b7;
-    color: #ffffff;
+    background-color: #1313B7;
+    color: #FFFFFF;
     border: none;
     border-radius: 5px;
     padding: 5px 8px;
@@ -46,67 +37,59 @@ h1{
     transition: background-color 0.2s;
 }
 #agregarTarea:hover{
-    background-color: #0c0c8d;
+    background-color: #0C0C8D;
 }
 #tareaLista{
     list-style: none;
     padding: 0;
     margin-top: 20px;
 }
-
+/*Creamos los estilos de cada elemento de la lista*/
 .task-item{
-    background-color: #ffffff;
-    border-left: 5px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border-left: 5px solid #0C0C8D;
     transition: all 0.3s ease;
 }
-
 .task-item span{
-    flex-grow: 1;
-    text-align: left;
+    flex-grow:1;
+    margin-right: 10px;
+    font-size:1em;
 }
-
-/* tarea completada */
+/*tarea completada*/
 .task-item.completed{
-    border-left-color: #4caf50;
-    background-color: #fcf9f9;
+    background-color: #F0F8FF;
+    border-left: 5px solid #19A314;
     opacity: 0.8;
 }
-
 .task-item.completed span{
     text-decoration: line-through;
     color: #888;
 }
-
 .task-item button{
-    background-color: #e74c3c;
-    margin-left: 5px;
-    font-weight: bold;
-    line-height: 1;
     border: none;
-    border-radius: 5px;
-    padding: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    padding:8px;
+    margin-left: 5px;
+    border-radius: 4px;
+    font-weight:bold;
+    line-height: 1;
 }
-
 .completed-btn{
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #19A314;
+    color: #FFFFFF;
 }
 .completed-btn:hover{
-    background-color: #447247;
-
+    background-color: #158E11;
 }
 .delete-btn{
-    background-color: #c0392b;
-    color: #fff;
+    background-color: #F91313;
+    color: #FFFFFF;
 }
 .delete-btn:hover{
-    background-color: #922b21;          
+    background-color: #B31212;
 }
