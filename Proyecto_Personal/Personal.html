@@ -1,29 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Imagin IA - Renueva tu Imagen y Bienestar</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Imagin IA - Renueva tu Imagen y Bienestar</title>
+ <link rel="stylesheet" href="estilo-personal.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilo-personal.css">
+  <link rel="stylesheet" href="estilo-personal.css">
 </head>
-<nav>
-<div class="menu">
-                    <span class="img-logo"><img class="logo" src="logo.svg" alt="letra i"></span>
-                    <a href="#inicio" class="nav-link">Inicio</a>
-                    <a href="#servicios" class="nav-link">Servicios</a>
-                    <a href="#contacto" class="nav-link">Contacto</a>
-                    <a href="#consulta" class="boton-primary">Consulta Gratuita<a>
-                    <a href="#blog" class="nav-link">Blog</a>
-                </div>
-                <!-- para ponerle el arcodeon y hacerlo responsive <div class="menu-mobile">
-                    <button id="arcordeon-mobile"></button>
-                    </div> --> 
-                    </nav>
 <body>
-    
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand">
+        <span class="brand-mark" href="logo.svg" aria-hidden="true"></span>
+        <span class="brand-title">Imagin IA</span>
+      </a>
+       <!-- este botón es para el mobile, si se abre o expande -->
+      <button id="menu-btn" class="menu-btn" aria-controls="nav" aria-expanded="false" aria-label="Abrir menú">
+        ☰
+      </button>
+
+      <nav id="nav" class="nav">
+        <a href="#inicio" class="nav-link">Inicio</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+        <a href="#contacto" class="nav-link btn-cta">Consulta Gratuita</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Redescubre tu Esencia. <span class="gradient-text">Renueva tu Imagen.</span></h1>
+          <p>Transforma tu imagen desde adentro hacia afuera con asesoría y herramientas potenciadas por IA.</p>
+          <div class="hero-cta">
+            <a href="#contacto" class="btn-primary">Agenda tu Consulta</a>
+            <a href="#servicios" class="btn-outline">Ver Servicios</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-blob"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="section">
+      <div class="container">
+        <h2 class="section-title">Servicios Diseñados para Ti</h2>
+        <p class="section-sub">Programas online que combinan experiencia humana y precisión de IA.</p>
+
+        <div class="cards">
+          <article class="card">
+            <h3 class="card-title">Análisis de Imagen con IA</h3>
+            <p class="card-desc">Informe de colorimetría, tipo de rostro y recomendaciones iniciales.</p>
+            <button class="card-btn">Desde 49€</button>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Asesoría Integral Online</h3>
+            <p class="card-desc">Sesiones 1-a-1 por videollamada y plan personalizado.</p>
+            <button class="card-btn">Desde 180€</button>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title">Armario Detox & Shopper</h3>
+            <p class="card-desc">Auditoría de armario, fondo de armario y lista de compras.</p>
+            <button class="card-btn">Desde 250€</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="section alt">
+      <div class="container about">
+        <div class="about-text">
+          <h2>Hola, soy María</h2>
+          <p>Con más de 10 años de experiencia, te acompaño para que te sientas cómoda, poderosa y auténtica.</p>
+
+          <div class="stats">
+            <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Transformaciones</div></div>
+            <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Años</div></div>
+          </div>
+        </div>
+
+        <div class="about-photo">
+          <img src="https://via.placeholder.com/500" alt="María González, Asesora de Imagen">
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <div class="container narrow">
+        <h2 class="section-title">¿Lista para tu Transformación?</h2>
+        <p class="section-sub">Agenda tu consulta inicial gratuita de 15 minutos.</p>
+
+        <div class="contact-panel">
+          <form id="contact-form" class="form">
+            <div class="form-row">
+              <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+              <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+
+            <select id="servicio" name="servicio" required>
+              <option value="">Selecciona un servicio</option>
+              <option value="ia">Análisis de Imagen con IA</option>
+              <option value="integral">Asesoría Integral</option>
+              <option value="armario">Armario Detox & Shopper</option>
+              <option value="consulta">Consulta Gratuita (15 min)</option>
+            </select>
+
+            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame sobre ti..."></textarea>
+
+            <button type="submit" class="btn-primary block">Enviar Consulta Gratuita</button>
+          </form>
+
+          <div id="success" class="success" hidden>¡Gracias! Te contactaré pronto.</div>
+        </div>
+
+        <div class="contact-info">
+          <div>📧 hola@imagin-ia.es</div>
+          <div>📱 +34 600 123 456</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="brand-footer">
+        <div class="brand-mark small">●</div>
+        <div class="brand-title small">Imagin IA</div>
+      </div>
+      <div class="copy">© 2025 Imagin IA. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script src="personal.js"></script>
 </body>
 </html>

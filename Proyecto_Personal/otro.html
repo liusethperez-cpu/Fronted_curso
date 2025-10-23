@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Imagin IA — Renueva tu Imagen y Bienestar | Asesoría online</title>
+
+  <!-- SEO essentials -->
+  <meta name="description" content="Imagin IA: asesoría de imagen y bienestar con apoyo de IA. Análisis de colorimetría, asesoría 1-a-1, armario detox y planes personalizados. Agenda tu consulta gratuita." />
+  <link rel="canonical" href="https://www.tu-dominio-ejemplo.com/" />
+
+  <!-- Social preview (Open Graph & Twitter) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Imagin IA — Renueva tu Imagen y Bienestar" />
+  <meta property="og:description" content="Asesoría de imagen online potenciada por IA. Informes de colorimetría, asesoría 1-a-1 y planes de estilo personalizados." />
+  <meta property="og:url" content="https://www.tu-dominio-ejemplo.com/" />
+  <meta property="og:image" content="https://www.tu-dominio-ejemplo.com/preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Imagin IA — Renueva tu Imagen y Bienestar" />
+  <meta name="twitter:description" content="Asesoría de imagen online potenciada por IA. Agenda tu consulta gratuita." />
+  <meta name="twitter:image" content="https://www.tu-dominio-ejemplo.com/preview.jpg" />
+
+  <!-- robots (ajusta según necesites) -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Preconnect y fonts (mejora rendimiento) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN (útil para prototipos). En producción considera compilar Tailwind) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos locales -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Structured data (JSON-LD) para SEO local/organización -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Imagin IA",
+    "url": "https://www.tu-dominio-ejemplo.com/",
+    "logo": "https://www.tu-dominio-ejemplo.com/logo.svg",
+    "description": "Asesoría de imagen online potenciada por IA. Análisis de colorimetría y asesoría integral.",
+    "telephone": "+34 600 123 456",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+34 600 123 456",
+      "contactType": "customer service",
+      "availableLanguage": ["es","en"]
+    }],
+    "sameAs": [
+      "https://www.instagram.com/tu-usuario",
+      "https://www.facebook.com/tu-usuario"
+    ]
+  }
+  </script>
+</head>
+<body class="antialiased text-gray-800 font-inter">
+
+  <!-- HEADER: semántico y accesible -->
+  <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navegación principal">
+      <div class="flex items-center justify-between h-16">
+        <a href="#inicio" class="flex items-center gap-3" aria-label="Inicio - Imagin IA">
+          <!-- Usa tu SVG como archivo para mejor rendimiento -->
+          <img src="logo_magenta.svg" alt="Logo Imagin IA" width="40" height="40" decoding="async" />
+          <span class="text-2xl font-playfair font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">Imagin IA</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+          <a class="nav-link" href="#inicio">Inicio</a>
+          <a class="nav-link" href="#servicios">Servicios</a>
+          <a class="nav-link" href="#sobre-mi">Sobre mí</a>
+          <a class="nav-link" href="#contacto">Contacto</a>
+          <a class="btn-primary" href="#contacto">Consulta Gratuita</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menú">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú móvil accesible -->
+    <div id="mobile-menu" class="md:hidden hidden" aria-hidden="true">
+      <div class="px-4 py-3">
+        <a class="block py-2" href="#inicio">Inicio</a>
+        <a class="block py-2" href="#servicios">Servicios</a>
+        <a class="block py-2" href="#sobre-mi">Sobre mí</a>
+        <a class="block py-2" href="#contacto">Contacto</a>
+        <a class="block mt-2 btn-primary text-center" href="#contacto">Consulta Gratuita</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO (un solo H1 por página — importante para SEO) -->
+    <section id="inicio" class="min-h-screen flex items-center bg-gradient-to-br from-pink-50 to-purple-50 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold leading-tight">
+            Redescubre tu Esencia. <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">Renueva tu Imagen</span>
+          </h1>
+          <p class="mt-6 text-lg text-gray-700 max-w-xl">
+            Transforma tu imagen desde adentro hacia afuera. Servicios online de asesoría y belleza potenciados por IA para que proyectes la confianza que mereces.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#contacto" class="btn-primary">Agenda tu Consulta</a>
+            <a href="#servicios" class="btn-outline">Ver Servicios</a>
+          </div>
+        </div>
+
+        <!-- Imagen/ilustración: usa formatos modernos (webp) y atributos para rendimiento -->
+        <div class="hidden lg:block">
+          <img src="hero-600.webp" alt="Asesoría de imagen online" class="rounded-3xl shadow-xl w-full" width="600" height="600" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-playfair font-bold">Servicios Diseñados para Ti</h2>
+          <p class="mt-3 text-gray-600 max-w-2xl mx-auto">Programas online personalizados que combinan experiencia con IA para tu transformación integral.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <article class="service-card p-6 rounded-2xl border" aria-labelledby="servicio-ia">
+            <h3 id="servicio-ia" class="text-xl font-semibold font-playfair">Análisis de Imagen con IA</h3>
+            <p class="text-gray-600 mt-3">Informe de colorimetría, morfología y recomendaciones de estilo basadas en IA.</p>
+            <ul class="mt-3 text-sm text-gray-600 space-y-1">
+              <li>Informe instantáneo</li>
+              <li>Análisis de rostro y cuerpo</li>
+              <li>Recomendaciones de estilo</li>
+            </ul>
+            <div class="mt-4">
+              <a class="btn-secondary" href="#contacto">Desde 49€</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="service-card p-6 rounded-2xl border" aria-labelledby="servicio-integral">
+            <h3 id="servicio-integral" class="text-xl font-semibold font-playfair">Asesoría Integral Online</h3>
+            <p class="text-gray-600 mt-3">Sesiones 1-a-1 con plan personalizado y moodboard.</p>
+            <div class="mt-4">
+              <a class="btn-secondary" href="#contacto">Desde 180€</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="service-card p-6 rounded-2xl border" aria-labelledby="servicio-armario">
+            <h3 id="servicio-armario" class="text-xl font-semibold font-playfair">Armario Detox & Shopper</h3>
+            <p class="text-gray-600 mt-3">Auditoría de armario, lista de compras inteligente y looks.</p>
+            <div class="mt-4">
+              <a class="btn-secondary" href="#contacto">Desde 250€</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-playfair font-bold">Hola, soy María</h2>
+          <p class="mt-4 text-gray-700">Con más de 10 años de experiencia, te acompaño en un viaje de autodescubrimiento. Combinando asesoría humana con IA para resultados reales.</p>
+
+          <dl class="mt-6 grid grid-cols-2 gap-4 text-center">
+            <div>
+              <dt class="text-2xl font-bold text-pink-600">500+</dt>
+              <dd class="text-gray-600">Transformaciones</dd>
+            </div>
+            <div>
+              <dt class="text-2xl font-bold text-purple-600">10+</dt>
+              <dd class="text-gray-600">Años de experiencia</dd>
+            </div>
+          </dl>
+        </div>
+
+        <figure>
+          <img src="maria-400.webp" alt="María González, asesora de imagen" class="w-full rounded-2xl shadow-lg" loading="lazy" width="400" height="400" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="text-center mb-8">
+          <h2 class="text-3xl md:text-4xl font-playfair font-bold">¿Lista para tu Transformación?</h2>
+          <p class="mt-3 text-gray-600">Agenda tu consulta inicial gratuita de 15 minutos. Hablemos de tus objetivos.</p>
+        </header>
+
+        <form id="contact-form" novalidate class="space-y-4 bg-gradient-to-br from-pink-50 to-purple-50 p-6 rounded-2xl shadow">
+          <!-- Nombre -->
+          <div>
+            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+            <input id="nombre" name="nombre" type="text" required class="form-input mt-1" placeholder="Tu nombre completo" />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" name="email" type="email" required class="form-input mt-1" placeholder="tu@correo.com" />
+          </div>
+
+          <!-- Servicio -->
+          <div>
+            <label for="servicio" class="block text-sm font-medium text-gray-700">Servicio de interés</label>
+            <select id="servicio" name="servicio" class="form-input mt-1" required>
+              <option value="">Selecciona un servicio</option>
+              <option value="ia">Análisis de Imagen con IA</option>
+              <option value="integral">Asesoría Integral Online</option>
+              <option value="armario">Armario Detox & Shopper</option>
+              <option value="consulta">Consulta Gratuita (15 min)</option>
+            </select>
+          </div>
+
+          <!-- Mensaje -->
+          <div>
+            <label for="mensaje" class="block text-sm font-medium text-gray-700">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" class="form-input mt-1" placeholder="Cuéntame brevemente tu objetivo..."></textarea>
+          </div>
+
+          <div>
+            <button id="submit-btn" type="submit" class="w-full btn-primary">Enviar Consulta Gratuita</button>
+          </div>
+
+          <div id="form-status" role="status" class="sr-only" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <img src="logo_magenta.svg" alt="Logo Imagin IA" width="36" height="36" decoding="async" />
+        <span class="font-playfair text-xl">Imagin IA</span>
+      </div>
+      <p class="text-gray-400">Tu mejor versión, potenciada por la tecnología y la empatía.</p>
+      <p class="text-gray-500 text-sm mt-4">© <span id="year"></span> Imagin IA. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
