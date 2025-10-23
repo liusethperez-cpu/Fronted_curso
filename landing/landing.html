@@ -1,31 +1,87 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="landing.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroCrianza - Maternidad Consciente</title>
+  <link rel="stylesheet" href="landing.css">
 </head>
 <body>
-<header>
-    <div class="menu"> 
-        <a href="#inicio" class="logo">
-                    <div img scr="/logo.svg" class=""></div>
-<span class="marca">Imagin IA</span>
+
+  <nav class="navbar">
+    <div class="nav-logo">AstroCrianza</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button id="darkToggle" class="theme-btn">🌙</button>
+      <div class="nav-toggle" id="nav-toggle">☰</div>
+    </div>
+  </nav>
+
+  <header id="home">
+    <h1>AstroCrianza</h1>
+    <p>Consultoría Astrológica para una Maternidad Consciente</p>
+    <button id="cta">Descubre la Carta Astral de tu Bebé</button>
+  </header>
+
+  <section id="about">
+    <h2>Sobre Mí</h2>
+    <p>Soy astróloga y madre, dedicada a guiar a familias hacia una crianza más empática y conectada a través de la astrología psicológica.</p>
+  </section>
+
+  <section id="services">
+    <h2>Servicios Principales</h2>
+    <div class="service">
+      <h3>Carta Astral Infantil</h3>
+      <p>Conoce la esencia única de tu hijo para acompañarlo con comprensión y amor.</p>
+      <span>Precio: €95 – €120</span>
     </div>
 
+    <div class="service">
+      <h3>Sinastría Familiar</h3>
+      <p>Armoniza las relaciones familiares comprendiendo la energía entre padres e hijos.</p>
+      <span>Precio: €130 – €150</span>
+    </div>
 
-        <div class="contenido">
-            <h1>Redescubre tu Esencia. Renueva tu Imagen.</h1>
-            <p>Transforma tu imagen desde adentro hacia afuera. Nuestros servicios online de asesoría y belleza, potenciados por IA, te ayudan a reconectar contigo misma y proyectar la confianza que mereces.</p>
+    <div class="service">
+      <h3>Tu Carta Astral como Madre/Padre</h3>
+      <p>Descubre tus fortalezas y desafíos como madre o padre desde tu carta natal.</p>
+      <span>Precio: €90 – €110</span>
+    </div>
+  </section>
 
-            <div class="imagen-perfil">
-                <img src="https://cdn.pixabay.com/photo/2014/07/31/23/01/clock-407101_1280.jpg" alt="flamingo tech">
-            </div>
-            <a href="#servicios" class="boton">Servicios</a>
-        </div>
-    </header>
+  <section id="blog">
+    <h2>Blog</h2>
+    <ul>
+      <li>El significado de la Luna en la carta de tu bebé</li>
+      <li>Cómo gestionar las rabietas según su signo</li>
+      <li>Compatibilidad astrológica entre hermanos</li>
+    </ul>
+  </section>
 
-    
+  <section id="contact">
+    <h2>Contacto</h2>
+    <p>¿Quieres reservar tu consulta o tienes dudas? Escríbeme.</p>
+    <form>
+      <input type="text" placeholder="Tu nombre" required>
+      <input type="email" placeholder="Tu email" required>
+      <textarea placeholder="Tu mensaje"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 AstroCrianza · Maternidad Consciente</p>
+  </footer>
+
+  <script src="landing.js"></script>
 </body>
 </html>
+
+
+
