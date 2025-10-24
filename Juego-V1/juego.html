@@ -5,17 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Destruye las Dudas — Juego contra el Síndrome del Impostor</title>
   <meta name="description" content="Haz clic en pensamientos negativos para transformarlos en frases sanadoras. Interactivo, accesible y pensado para principiantes." />
-  <!-- Fuente opcional: si tienes conexión, descomenta la línea siguiente -->
+  <!-- Fuente opcional -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> -->
   <link rel="stylesheet" href="estilo-juego.css" />
 </head>
 <body>
   <header class="header" role="banner">
     <div class="title-wrap">
-      <h1>¡Destruye las Dudas!</h1>
+      <!-- Logo visible (asegura la ruta correcta) -->
+      <img src="/Juego-V1/logo-juego/logo.svg" alt="Símbolo circular colorido representando el juego BE REAL contra el síndrome del impostor" class="logo" />
+      <h1>¡BE REAL!</h1>
       <p class="subtitle">
-        Haz clic o presiona Enter/Espacio sobre los pensamientos antes de que desaparezcan.
-        Cada pensamiento sanado te da puntuación y una frase de Ho'oponopono para acompañar el proceso.
+        Haz clic sobre los pensamientos antes de que desaparezcan. 
+        Cada pensamiento nuevo te da puntuación, debes repetir la frase sanadora para acompañar el proceso.
       </p>
     </div>
 
@@ -65,10 +67,10 @@
   </main>
 
   <footer class="footer" role="contentinfo">
-    <p>Desarrollado por Liuseth Pérez — <a href="https://www.linkedin.com/in/liuseth/" target="_blank" rel="noopener">LinkedIn</a></p>
+    <p>Desarrollado por Liuseth Pérez Clavijo <a href="https://www.linkedin.com/in/liuseth/" target="_blank" rel="noopener"> <img src="/Juego-V1/logo-juego/LINK.webp" alt="LinkedIn social media icon linking to Liuseth Pérez profile" class="linkedin-logo" /></a></p>
   </footer>
 
-  <!-- Audios simples: usamos WebAudio desde JS como opción. Aquí incluimos pequeñas muestras como fallback -->
+  <!-- Audios fallback: los sonidos principales se generan con WebAudio en JS -->
   <audio id="popSound" preload="auto">
     <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
   </audio>

@@ -1,22 +1,15 @@
-/* juego.js - Mejorado para principiantes
-   Comentarios en español y funciones organizadas.
-   Funcionalidades añadidas:
-   - Controles de duración y dificultad
-   - Progreso visual del tiempo (texto + animación)
-   - Sonidos generados con WebAudio (más compatibles)
-   - Efectos de partículas y texto flotante al clicar
-   - Accesibilidad: los pensamientos son focusables y responden a Enter/Espacio
-   - Código modular y comentado para facilitar mejoras
+/* juego.js - versión con logo/íconos y animación mejorada al destruir pensamientos
+   Comentarios en español, modular y pensado para principiantes.
 */
 
 /* -------------------------
-   Configuración inicial
+   Configuración
    ------------------------- */
 const gameConfig = {
-  defaultDuration: 30, // segundos
+  defaultDuration: 30,
   minDuration: 15,
   maxDuration: 120,
-  baseSpawnInterval: 1800, // ms (se reducirá según dificultad)
+  baseSpawnInterval: 1800,
   negativeThoughts: [
     "No soy lo suficientemente buena para este puesto",
     "Mis colegas son más competentes que yo",
@@ -84,14 +77,11 @@ const elements = {
 };
 
 /* -------------------------
-   Audio: WebAudio simple generator
-   - Proporciona sonidos cortos sin necesidad de archivos externos
+   Audio (WebAudio) - genera tonos cortos
    ------------------------- */
 let audioCtx = null;
 function ensureAudioContext(){
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }
 function playBeep({freq = 440, type = 'sine', duration = 0.08, gain = 0.08} = {}){
   if (!gameState.soundEnabled) return;
@@ -108,54 +98,38 @@ function playBeep({freq = 440, type = 'sine', duration = 0.08, gain = 0.08} = {}
     o.start();
     o.stop(audioCtx.currentTime + duration + 0.02);
   } catch (err) {
-    // como fallback, intenta reproducir los elementos <audio> si existen
+    // fallback a <audio> si existiera
     try {
-      if (type === 'bell' && elements.bellSoundEl) {
-        elements.bellSoundEl.currentTime = 0;
-        elements.bellSoundEl.play().catch(()=>{});
-      } else if (elements.popSoundEl) {
-        elements.popSoundEl.currentTime = 0;
-        elements.popSoundEl.play().catch(()=>{});
-      }
+      if (elements.popSoundEl) { elements.popSoundEl.currentTime = 0; elements.popSoundEl.play().catch(()=>{}); }
     } catch(e){}
   }
 }
 
 /* -------------------------
-   Inicialización y eventos del UI
+   Inicialización
    ------------------------- */
 function init() {
-  // Cargar récord desde localStorage
   loadHighscore();
-
-  // Mostrar duración inicial
   elements.durationInput.min = gameConfig.minDuration;
   elements.durationInput.max = gameConfig.maxDuration;
   elements.durationInput.value = gameConfig.defaultDuration;
   elements.durationLabel.textContent = `${gameConfig.defaultDuration} s`;
   elements.timeDisplay.textContent = formatTime(gameConfig.defaultDuration);
 
-  // Listeners UI
   elements.startButton.addEventListener('click', toggleGame);
   elements.voiceToggle.addEventListener('change', (e) => gameState.voiceEnabled = e.target.checked);
   elements.soundToggle.addEventListener('change', (e) => gameState.soundEnabled = e.target.checked);
-
   elements.durationInput.addEventListener('input', (e) => {
-    const sec = parseInt(e.target.value, 10);
-    elements.durationLabel.textContent = `${sec} s`;
-    elements.startButton.textContent = `¡Empezar (${sec} s)!`;
+    const s = parseInt(e.target.value,10);
+    elements.durationLabel.textContent = `${s} s`;
+    elements.startButton.textContent = `¡Empezar (${s} s)!`;
   });
-
   elements.difficultySelect.addEventListener('change', (e) => {
     gameState.difficultyMultiplier = parseFloat(e.target.value);
   });
 
-  // Mejora para compatibilidad de voz: precargar voces si hay speechSynthesis
-  if ('speechSynthesis' in window) {
-    speechSynthesis.getVoices(); // disparar la carga
-  }
+  if ('speechSynthesis' in window) speechSynthesis.getVoices();
 
-  // Accessibility: permitir iniciar con tecla Enter desde la página
   document.addEventListener('keydown', (e) => {
     if (!gameState.isPlaying && (e.key === 'Enter' && document.activeElement === elements.startButton)) {
       toggleGame();
@@ -165,19 +139,15 @@ function init() {
 init();
 
 /* -------------------------
-   Iniciar / Parar juego
+   Iniciar / detener
    ------------------------- */
 function toggleGame() {
-  if (gameState.isPlaying) {
-    endGame();
-  } else {
-    startGame();
-  }
+  if (gameState.isPlaying) endGame();
+  else startGame();
 }
 
 function startGame() {
-  // Preparar estado nuevo
-  const duration = parseInt(elements.durationInput.value, 10) || gameConfig.defaultDuration;
+  const duration = parseInt(elements.durationInput.value,10) || gameConfig.defaultDuration;
   gameState.isPlaying = true;
   gameState.score = 0;
   gameState.timeLeft = duration;
@@ -185,82 +155,60 @@ function startGame() {
   gameState.activeThoughts.clear();
   gameState.difficultyMultiplier = parseFloat(elements.difficultySelect.value) || 1;
 
-  // UI
   elements.scoreDisplay.textContent = '0';
   elements.timeDisplay.textContent = formatTime(gameState.timeLeft);
   elements.startButton.textContent = 'Sanando...';
   elements.startButton.disabled = true;
   if (elements.placeholder) elements.placeholder.style.display = 'none';
 
-  // Iniciar timers
   startGameTimer();
-  scheduleNextSpawn(0); // spawn inmediato
+  scheduleNextSpawn(0);
 }
 
 function endGame() {
   gameState.isPlaying = false;
-
-  // Limpiar timers
   if (gameState.gameTimerId) clearInterval(gameState.gameTimerId);
   if (gameState.spawnTimerId) clearTimeout(gameState.spawnTimerId);
 
-  // Eliminar pensamientos restantes
   for (const el of Array.from(gameState.activeThoughts)) {
     if (el && el.parentElement) el.remove();
   }
   gameState.activeThoughts.clear();
 
-  // Cancelar voz si estaba hablando
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 
-  // Guardar récord
   const isNewRecord = saveHighscore();
-
-  // Mostrar resultados
   showResults(isNewRecord);
 
-  // Reset UI
-  const duration = parseInt(elements.durationInput.value, 10) || gameConfig.defaultDuration;
+  const duration = parseInt(elements.durationInput.value,10) || gameConfig.defaultDuration;
   elements.startButton.disabled = false;
   elements.startButton.textContent = `¡Empezar (${duration} s)!`;
   if (elements.placeholder) elements.placeholder.style.display = 'block';
 }
 
 /* -------------------------
-   Timer principal (1s)
+   Timer
    ------------------------- */
 function startGameTimer() {
-  // Mostrar inmediatamente
   elements.timeDisplay.textContent = formatTime(gameState.timeLeft);
-
   gameState.gameTimerId = setInterval(() => {
     if (!gameState.isPlaying) return;
     gameState.timeLeft--;
     elements.timeDisplay.textContent = formatTime(gameState.timeLeft);
-
-    // Efecto visual cuando queda poco tiempo
-    if (gameState.timeLeft <= 5) {
-      elements.timeDisplay.parentElement.style.color = '#d9534f';
-    } else {
-      elements.timeDisplay.parentElement.style.color = '';
-    }
-
-    if (gameState.timeLeft <= 0) {
-      endGame();
-    }
+    if (gameState.timeLeft <= 5) elements.timeDisplay.parentElement.style.color = '#d9534f';
+    else elements.timeDisplay.parentElement.style.color = '';
+    if (gameState.timeLeft <= 0) endGame();
   }, 1000);
 }
 
 /* -------------------------
-   Generador y manejo de pensamientos
+   Spawn pensamientos
    ------------------------- */
 function scheduleNextSpawn(delay = null) {
   if (!gameState.isPlaying) return;
-  // Intervalo base reducido según dificultad y score
   const scoreFactor = Math.floor(gameState.score / 8);
   const difficulty = gameState.difficultyMultiplier + scoreFactor * 0.05;
   const spawnInterval = Math.max(600, gameConfig.baseSpawnInterval / difficulty);
-
   const next = delay !== null ? delay : spawnInterval;
   gameState.spawnTimerId = setTimeout(() => {
     if (!gameState.isPlaying) return;
@@ -272,41 +220,29 @@ function scheduleNextSpawn(delay = null) {
 function spawnThought() {
   const thought = document.createElement('div');
   thought.className = 'thought';
-  thought.tabIndex = 0; // focusable para accesibilidad
+  thought.tabIndex = 0;
 
-  // A veces producimos una variante "healing" con mayor recompensa
-  const isHealing = Math.random() < 0.12; // 12% probabilidad
+  const isHealing = Math.random() < 0.12;
   if (isHealing) thought.classList.add('healing');
 
+  // Añadimos icono visible + texto (mantiene el logo/íconos que pediste)
+  const icon = isHealing ? '🌿' : '💭';
   const text = isHealing ? getRandomHealingPhrase().phrase : getRandomNegativeThought();
-  thought.innerHTML = `<span class="text">${text}</span>`;
+  thought.innerHTML = `<span class="icon">${icon}</span><span class="text">${text}</span>`;
 
-  // Posición aleatoria dentro del área de juego
   positionThought(thought);
 
-  // Eventos:
-  // - clic/tap
-  // - teclado: Enter o Espacio
   thought.addEventListener('click', () => onThoughtClick(thought, isHealing));
   thought.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onThoughtClick(thought, isHealing);
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onThoughtClick(thought, isHealing); }
   });
 
-  // Al perder foco, dejamos la animación normal
-  thought.addEventListener('blur', () => { /* placeholder si se quiere extender */ });
-
-  // Agregar al DOM y al estado
   elements.gameArea.appendChild(thought);
   gameState.activeThoughts.add(thought);
 
-  // Auto-remover si no es clickeado en X tiempo (se reduce con dificultad)
   const lifeTime = Math.max(1500, 4200 / (gameState.difficultyMultiplier + gameState.score * 0.02));
   setTimeout(() => {
     if (!thought.classList.contains('clicked') && thought.parentElement) {
-      // animación suave de desvanecimiento
       thought.style.transition = 'transform .4s ease, opacity .4s ease';
       thought.style.opacity = '0';
       thought.style.transform = 'scale(.9) translateY(10px)';
@@ -320,13 +256,10 @@ function spawnThought() {
   }, lifeTime);
 }
 
-/* Posicionar pensamiento aleatoriamente dentro del contenedor */
 function positionThought(el) {
   const rect = elements.gameArea.getBoundingClientRect();
-  // Tamaño aproximado del pensamiento
-  const w = Math.min(300, rect.width * 0.32);
-  const h = 80;
-  // Determinar máximos
+  const w = Math.min(320, rect.width * 0.36);
+  const h = 90;
   const maxX = Math.max(0, rect.width - w - 20);
   const maxY = Math.max(0, rect.height - h - 20);
   const x = Math.random() * maxX + 10;
@@ -336,48 +269,53 @@ function positionThought(el) {
 }
 
 /* -------------------------
-   Interacción cuando clickeas un pensamiento
+   Al clicar pensamiento: animaciones mejoradas
    ------------------------- */
 function onThoughtClick(thoughtEl, isHealing) {
   if (!gameState.isPlaying) return;
   if (thoughtEl.classList.contains('clicked')) return;
 
-  // Marcar como clickeado para evitar dobles
   thoughtEl.classList.add('clicked');
 
-  // Sumar puntos: las healing dan más
   const points = isHealing ? Math.ceil(2 * gameState.difficultyMultiplier) : Math.ceil(1 * gameState.difficultyMultiplier);
   gameState.score += points;
   gameState.thoughtsClicked++;
   elements.scoreDisplay.textContent = gameState.score;
 
-  // Pequeño efecto visual de puntuación (+n)
   spawnScoreFloater(thoughtEl, `+${points}`);
 
-  // Partículas
+  // Añadimos varias capas visuales:
+  // 1) clase explode (CSS) que hace un push/zoom + rotación
+  // 2) partículas coloreadas
+  // 3) pequeños iconos (✨ 🌸 🦋) que vuelan hacia arriba
+  thoughtEl.classList.add('explode');
+
+  // partículas base
   spawnParticles(thoughtEl, isHealing ? ['#48bb78','#a7f3d0','#6ee7b7'] : ['#ba55d3','#ffd6f6','#9f7aea']);
 
-  // Sonido pop y campana para healing
+  // iconos voladores (decorativos)
+  spawnFlyingIcons(thoughtEl, isHealing ? ['🌿','✨','🕊️'] : ['✨','🌸','🦋']);
+
+  // sonidos
   if (gameState.soundEnabled) {
     playBeep({ freq: isHealing ? 880 : 540, type: 'sine', duration: 0.09, gain: 0.08 });
-    if (isHealing) setTimeout(()=> playBeep({freq: 1200, type:'sine', duration:0.18, gain:0.06}), 80);
+    if (isHealing) setTimeout(()=> playBeep({freq:1200,type:'sine',duration:0.16,gain:0.06}),90);
   }
 
-  // Mostrar mensaje de sanación si es healing o mostrar frase en general
-  showHealingMessage(isHealing ? getRandomHealingPhrase() : getRandomHealingPhrase());
+  // Mostrar mensaje sanador (elige aleatorio para reforzar el efecto)
+  showHealingMessage(getRandomHealingPhrase());
 
-  // Animación de desaparición
+  // Remover del DOM tras animación (coincide con duración CSS)
   setTimeout(() => {
     try { thoughtEl.remove(); } catch(e){}
     gameState.activeThoughts.delete(thoughtEl);
-  }, 420);
+  }, 480);
 }
 
 /* -------------------------
-   Mensaje de sanación (modal pequeño)
+   Mensajes / voz
    ------------------------- */
 function showHealingMessage({ phrase = "Respira y suelta", explanation = "" } = {}) {
-  // Crear un modal pequeño y autodestruir
   const div = document.createElement('div');
   div.className = 'healing-message';
   div.innerHTML = `
@@ -386,20 +324,11 @@ function showHealingMessage({ phrase = "Respira y suelta", explanation = "" } = 
     <button id="closeHealingBtn" style="margin-top:10px; padding:8px 12px; border-radius:10px; background:linear-gradient(90deg,#48bb78,#2f855a); color:#fff; border:none;">Continuar</button>
   `;
   document.body.appendChild(div);
-
-  // Hablar la frase si está habilitado
-  if (gameState.voiceEnabled && 'speechSynthesis' in window) {
-    speakText(phrase);
-  }
-
-  // Cerrar al click o después de 3.5s
+  if (gameState.voiceEnabled && 'speechSynthesis' in window) speakText(phrase);
   document.getElementById('closeHealingBtn').addEventListener('click', () => div.remove());
   setTimeout(() => { if (div.parentElement) div.remove(); }, 3500);
 }
 
-/* -------------------------
-   Voz: síntesis (speechSynthesis)
-   ------------------------- */
 function speakText(text) {
   if (!('speechSynthesis' in window) || !gameState.voiceEnabled) return;
   try {
@@ -409,7 +338,6 @@ function speakText(text) {
     u.rate = 0.9;
     u.pitch = 1.0;
     u.volume = 0.9;
-    // Intentar seleccionar voz en español (si está disponible)
     const voices = speechSynthesis.getVoices();
     const v = voices.find(v => /es/.test(v.lang));
     if (v) u.voice = v;
@@ -418,7 +346,7 @@ function speakText(text) {
 }
 
 /* -------------------------
-   Partículas y efectos visuales
+   Efectos visuales: partículas y flying icons
    ------------------------- */
 function spawnParticles(originEl, colors = ['#fff']) {
   const rect = originEl.getBoundingClientRect();
@@ -426,35 +354,68 @@ function spawnParticles(originEl, colors = ['#fff']) {
   const originX = rect.left - parentRect.left + rect.width/2;
   const originY = rect.top - parentRect.top + rect.height/2;
 
-  for (let i=0;i<8;i++){
+  for (let i=0;i<10;i++){
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.background = colors[Math.floor(Math.random()*colors.length)];
     p.style.left = `${originX}px`;
     p.style.top = `${originY}px`;
-    const size = Math.random() * 8 + 6;
+    const size = Math.random() * 10 + 6;
     p.style.width = `${size}px`;
     p.style.height = `${size}px`;
     elements.gameArea.appendChild(p);
 
-    // animar con transition + transform
     const angle = Math.random() * Math.PI * 2;
-    const distance = 30 + Math.random() * 80;
+    const distance = 30 + Math.random() * 100;
     const dx = Math.cos(angle) * distance;
     const dy = Math.sin(angle) * distance;
     p.animate([
       { transform: 'translate(0,0) scale(1)', opacity: 1 },
-      { transform: `translate(${dx}px, ${dy}px) scale(.3)`, opacity: 0 }
+      { transform: `translate(${dx}px, ${dy}px) scale(.2)`, opacity: 0 }
     ], {
-      duration: 700 + Math.random() * 400,
+      duration: 700 + Math.random() * 500,
       easing: 'cubic-bezier(.2,.8,.2,1)'
     });
-    // remover después de animación
     setTimeout(()=> p.remove(), 1200);
   }
 }
 
-/* Pequeño texto flotante con la cantidad de puntos */
+/* Iconos voladores (emoji) que suben y desaparecen */
+function spawnFlyingIcons(originEl, icons = ['✨']) {
+  const rect = originEl.getBoundingClientRect();
+  const parentRect = elements.gameArea.getBoundingClientRect();
+  const originX = rect.left - parentRect.left + rect.width/2;
+  const originY = rect.top - parentRect.top + 8;
+
+  for (let i=0;i<3;i++){
+    const ico = document.createElement('div');
+    ico.className = 'particle';
+    ico.style.width = '20px';
+    ico.style.height = '20px';
+    ico.style.borderRadius = '4px';
+    ico.style.fontSize = '18px';
+    ico.style.display = 'flex';
+    ico.style.alignItems = 'center';
+    ico.style.justifyContent = 'center';
+    ico.textContent = icons[Math.floor(Math.random()*icons.length)];
+    ico.style.left = `${originX + (Math.random()*30-15)}px`;
+    ico.style.top = `${originY}px`;
+    elements.gameArea.appendChild(ico);
+
+    const dx = (Math.random()-0.5) * 80;
+    const dy = -60 - Math.random()*80;
+    ico.animate([
+      { transform: 'translate(0,0) scale(1)', opacity:1 },
+      { transform: `translate(${dx}px, ${dy}px) scale(.7)`, opacity:0 }
+    ], {
+      duration: 900 + Math.random()*400,
+      easing: 'cubic-bezier(.2,.8,.2,1)'
+    });
+    setTimeout(()=> ico.remove(), 1200);
+  }
+}
+
+/* Texto flotante +puntos */
 function spawnScoreFloater(originEl, text){
   const rect = originEl.getBoundingClientRect();
   const parentRect = elements.gameArea.getBoundingClientRect();
@@ -472,23 +433,12 @@ function spawnScoreFloater(originEl, text){
 }
 
 /* -------------------------
-   Utilidades: obtener pensamientos aleatorios, formato tiempo y highscore
+   Utilidades y highscore
    ------------------------- */
-function getRandomNegativeThought(){
-  return gameConfig.negativeThoughts[Math.floor(Math.random() * gameConfig.negativeThoughts.length)];
-}
-function getRandomHealingPhrase(){
-  return gameConfig.healingPhrases[Math.floor(Math.random() * gameConfig.healingPhrases.length)];
-}
-function formatTime(seconds) {
-  const m = Math.floor(seconds/60);
-  const s = seconds % 60;
-  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
+function getRandomNegativeThought(){ return gameConfig.negativeThoughts[Math.floor(Math.random()*gameConfig.negativeThoughts.length)]; }
+function getRandomHealingPhrase(){ return gameConfig.healingPhrases[Math.floor(Math.random()*gameConfig.healingPhrases.length)]; }
+function formatTime(seconds){ const m = Math.floor(seconds/60); const s = seconds%60; return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
 
-/* -------------------------
-   Puntuación máxima (localStorage)
-   ------------------------- */
 function loadHighscore(){
   const hs = parseInt(localStorage.getItem('hooponoponoHighscore') || '0', 10);
   elements.highscoreDisplay.textContent = isNaN(hs) ? '0' : hs;
@@ -503,13 +453,12 @@ function saveHighscore(){
   return false;
 }
 
-/* -------------------------
-   Mostrar resultados finales
-   ------------------------- */
+/* Resultados finales */
 function showResults(isNewRecord){
   const div = document.createElement('div');
   div.className = 'results';
-  const rpm = Math.round((gameState.thoughtsClicked / ( (parseInt(elements.durationInput.value,10) || gameConfig.defaultDuration) / 60 )) || 0);
+  const duration = parseInt(elements.durationInput.value,10) || gameConfig.defaultDuration;
+  const rpm = Math.round((gameState.thoughtsClicked / (duration / 60)) || 0);
   div.innerHTML = `
     <h2 style="margin-top:0;">${isNewRecord ? '🌟 Nuevo Récord!' : '🌸 Sesión completada'}</h2>
     <p><strong>Puntuación:</strong> ${gameState.score}</p>
@@ -523,20 +472,12 @@ function showResults(isNewRecord){
   `;
   document.body.appendChild(div);
   document.getElementById('closeRes').addEventListener('click', ()=> div.remove());
-  document.getElementById('again').addEventListener('click', ()=> {
-    div.remove();
-    startGame();
-  });
+  document.getElementById('again').addEventListener('click', ()=> { div.remove(); startGame(); });
   setTimeout(()=> { if (div.parentElement) div.remove(); }, 10000);
 }
 
-/* -------------------------
-   Formato y fin del archivo
-   ------------------------- */
-// NOTA: Este archivo está diseñado para que un principiante pueda leer,
-// entender y modificarlo. Si quieres mejorar:
-// - Añade imágenes o SVG para los pensamientos
-// - Guarda estadísticas más detalladas en localStorage
-// - Añade niveles con metas (p. ej. 50 puntos para pasar al siguiente nivel)
-// - Integra más voces o sonidos personalizados
-
+/* Fin del archivo - sugerencias para mejorar:
+   - Cambiar la ruta del logo si es necesario
+   - Añadir más assets (SVG) para reemplazar los emojis por iconos vectoriales
+   - Ajustar colores y tiempos de animación según preferencia
+*/
