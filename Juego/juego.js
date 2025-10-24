@@ -1,4 +1,3 @@
-avaScript (juego.js):
 
 // Configuración del juego Ho'oponopono
 const gameConfig = {
