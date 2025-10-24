@@ -3,41 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Destruye las Dudas: El Juego del Síndrome del Impostor</title>
-  <description>Un juego interactivo diseñado para ayudar a las mujeres a combatir el síndrome del impostor. Haz clic en los pensamientos negativos para destruirlos, aumentar tu confianza y alcanzar tu puntuación más alta. ¡Empodérate y silencia a tu crítico interior!</description>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <title>Destruye las Dudas — Juego contra el Síndrome del Impostor</title>
+  <meta name="description" content="Haz clic en pensamientos negativos para transformarlos en frases sanadoras. Interactivo, accesible y pensado para principiantes." />
+  <!-- Fuente opcional: si tienes conexión, descomenta la línea siguiente -->
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> -->
   <link rel="stylesheet" href="estilo-juego.css" />
 </head>
 <body>
-  <header class="header">
+  <header class="header" role="banner">
     <div class="title-wrap">
       <h1>¡Destruye las Dudas!</h1>
-      <p class="subtitle">Haz clic o toca los pensamientos antes de que desaparezcan. ¡Aumenta la dificultad con tu puntuación!</p>
+      <p class="subtitle">
+        Haz clic o presiona Enter/Espacio sobre los pensamientos antes de que desaparezcan.
+        Cada pensamiento sanado te da puntuación y una frase de Ho'oponopono para acompañar el proceso.
+      </p>
     </div>
 
-    <div class="hud">
+    <div class="hud" aria-hidden="false">
       <div class="score-board" aria-live="polite">Puntuación: <span id="score">0</span></div>
       <div class="timer" aria-live="polite">Tiempo: <span id="time">00:30</span></div>
       <div class="highscore">Récord: <span id="highscore">0</span></div>
+    </div>
+
+    <div class="controls">
+      <label class="control">
+        <span>Duración (segundos)</span>
+        <input id="durationInput" type="range" min="15" max="120" value="30" />
+        <strong id="durationLabel">30 s</strong>
+      </label>
+
+      <label class="control small">
+        <input id="voiceToggle" type="checkbox" checked />
+        Voz
+      </label>
+
+      <label class="control small">
+        <input id="soundToggle" type="checkbox" checked />
+        Sonidos
+      </label>
+
+      <label class="control">
+        <span>Dificultad</span>
+        <select id="difficultySelect">
+          <option value="1">Fácil</option>
+          <option value="1.5">Normal</option>
+          <option value="2">Difícil</option>
+        </select>
+      </label>
+
       <button id="startButton" class="btn">¡Empezar (30 s)!</button>
     </div>
+
   </header>
 
-  <main id="game-area" class="game-area" aria-label="Área de juego" role="application">
-    <!-- Los pensamientos se generarán aquí -->
+  <main id="game-area" class="game-area" role="application" aria-label="Área de juego">
+    <!-- Aquí se crearán los pensamientos dinámicamente -->
+    <div id="placeholder" class="placeholder">
+      <p>Presiona "¡Empezar!" para iniciar la sesión de sanación.</p>
+      <p class="hint">Consejo: usa teclado, ratón o táctil. Mejora tu concentración mientras juegas.</p>
+    </div>
   </main>
 
-  <!-- Sonidos (opcionales). Si no quieres sonidos, puedes comentar las filas <audio>. -->
+  <footer class="footer" role="contentinfo">
+    <p>Desarrollado por Liuseth Pérez — <a href="https://www.linkedin.com/in/liuseth/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <!-- Audios simples: usamos WebAudio desde JS como opción. Aquí incluimos pequeñas muestras como fallback -->
   <audio id="popSound" preload="auto">
     <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
   </audio>
-  <audio id="bombSound" preload="auto">
+  <audio id="bellSound" preload="auto">
     <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
   </audio>
-<div>
-    <footer class="footer">
-        <p>Desarrollado por Liuseth Pérez <a href="https://www.linkedin.com/in/liuseth/" target="_blank">LinkedIn</a></p>
-    </footer>
+
   <script src="juego.js"></script>
 </body>
 </html>

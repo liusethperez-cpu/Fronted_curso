@@ -9,7 +9,7 @@ let ai;
 if (API_KEY) {
     ai = new GoogleGenAI({ apiKey: API_KEY });
 } else {
-    console.warn("API_KEY is not set. Gemini features will be disabled.");
+    console.warn("API_KEY not provided. Using default list of doubts.");
 }
 
 const defaultDoubts = [
@@ -31,7 +31,10 @@ const defaultDoubts = [
 ];
 
 async function generateDoubts() {
-  if (!API_KEY || !ai) return defaultDoubts;
+  if (!ai) {
+      console.log("Using default doubts list.");
+      return defaultDoubts;
+  }
 
   try {
     const response = await ai.models.generateContent({
@@ -49,16 +52,17 @@ async function generateDoubts() {
                 description: "Un pensamiento de duda o síndrome del impostor."
               }
             }
-          }
+          },
+          required: ["doubts"]
         }
       },
     });
 
     const jsonText = response.text.trim();
     const result = JSON.parse(jsonText);
-    return result.doubts || defaultDoubts;
+    return result.doubts && result.doubts.length > 0 ? result.doubts : defaultDoubts;
   } catch (error) {
-    console.error("Error generating doubts with Gemini:", error);
+    console.error("Error generating doubts with Gemini, using defaults:", error);
     return defaultDoubts;
   }
 }
@@ -78,7 +82,7 @@ let gameState = 'loading'; // loading | idle | playing | finished
 let score = 0;
 let timeLeft = GAME_DURATION;
 let highScore = Number(localStorage.getItem('doubtDestroyerHighScore') || 0);
-let doubtsOnScreen = []; // Array of doubt objects { id, element }
+let doubtsOnScreen = []; // Array of doubt objects { id, element, timeout }
 let doubtList = [];
 let timerInterval = null;
 let doubtSpawnInterval = null;
@@ -92,7 +96,7 @@ const formatTime = (seconds) => {
 
 const clearTimers = () => {
     if (timerInterval) clearInterval(timerInterval);
-    if (doubtSpawnInterval) clearInterval(doubtSpawnInterval);
+    if (doubtSpawnInterval) clearTimeout(doubtSpawnInterval);
     timerInterval = null;
     doubtSpawnInterval = null;
 };
@@ -105,46 +109,59 @@ const updateHighScoreDisplay = () => highscoreValue.textContent = highScore;
 const showOverlay = (title, text) => {
     overlayTitle.textContent = title;
     overlayText.textContent = text;
-    gameOverlay.style.display = 'flex';
+    gameOverlay.classList.remove('hidden');
+    gameOverlay.classList.add('flex');
 };
 
 const hideOverlay = () => {
-    gameOverlay.style.display = 'none';
+    gameOverlay.classList.add('hidden');
+    gameOverlay.classList.remove('flex');
 };
 
 const updateButtonState = () => {
+    const buttonText = `¡Empezar (${GAME_DURATION}s)!`;
     if (gameState === 'loading') {
         startButton.textContent = 'Cargando...';
         startButton.disabled = true;
     } else if (gameState === 'playing') {
-        startButton.textContent = `¡Empezar (${GAME_DURATION}s)!`;
+        startButton.textContent = buttonText;
         startButton.disabled = true;
-    } else {
-        startButton.textContent = `¡Empezar (${GAME_DURATION}s)!`;
+    } else { // idle or finished
+        startButton.textContent = buttonText;
         startButton.disabled = false;
     }
 };
 
 // --- GAME LOGIC ---
-const handleDoubtClick = (doubtId, doubtElement) => {
-    score++;
-    updateScoreDisplay();
 
+const removeDoubt = (doubtId, doubtElement) => {
+    const doubtIndex = doubtsOnScreen.findIndex(d => d.id === doubtId);
+    if (doubtIndex === -1) return; // Already removed
+
+    clearTimeout(doubtsOnScreen[doubtIndex].timeout);
+    doubtsOnScreen.splice(doubtIndex, 1);
+    
+    doubtElement.style.pointerEvents = 'none';
     doubtElement.classList.replace('scale-100', 'scale-50');
     doubtElement.classList.replace('opacity-100', 'opacity-0');
 
     setTimeout(() => {
         doubtElement.remove();
-        doubtsOnScreen = doubtsOnScreen.filter(d => d.id !== doubtId);
-    }, 200);
+    }, 300);
+};
+
+const handleDoubtClick = (doubtId, doubtElement) => {
+    score++;
+    updateScoreDisplay();
+    removeDoubt(doubtId, doubtElement);
 };
 
 const createDoubtElement = () => {
+    const doubtId = Date.now() + Math.random();
     const doubtData = {
-        id: Date.now(),
         text: doubtList[Math.floor(Math.random() * doubtList.length)],
-        x: Math.random() * 80 + 10,
-        y: Math.random() * 80 + 10,
+        x: Math.random() * 85 + 7.5,
+        y: Math.random() * 85 + 7.5,
     };
 
     const button = document.createElement('button');
@@ -160,27 +177,23 @@ const createDoubtElement = () => {
     span.textContent = doubtData.text;
     button.appendChild(span);
 
-    button.onclick = () => handleDoubtClick(doubtData.id, button);
+    button.onclick = () => handleDoubtClick(doubtId, button);
 
-    // Fade in animation
     setTimeout(() => {
         button.classList.replace('opacity-0', 'opacity-100');
         button.classList.replace('scale-50', 'scale-100');
     }, 50);
 
-    // Auto-remove after time
     const lifetimeTimeout = setTimeout(() => {
-        if (button.parentElement) {
-            handleDoubtClick(doubtData.id, button); // count as a miss by just removing
-        }
+        removeDoubt(doubtId, button);
     }, 4000);
 
-    doubtsOnScreen.push({ id: doubtData.id, element: button, timeout: lifetimeTimeout });
+    doubtsOnScreen.push({ id: doubtId, element: button, timeout: lifetimeTimeout });
     gameArea.appendChild(button);
 };
 
 const startGame = () => {
-    if (gameState !== 'idle') return;
+    if (gameState === 'playing') return;
 
     score = 0;
     timeLeft = GAME_DURATION;
@@ -196,7 +209,6 @@ const startGame = () => {
     updateButtonState();
     hideOverlay();
     
-    // Timer interval
     timerInterval = setInterval(() => {
         timeLeft--;
         updateTimeDisplay();
@@ -205,8 +217,8 @@ const startGame = () => {
         }
     }, 1000);
 
-    // Doubt spawner
     const spawnLoop = () => {
+        if (gameState !== 'playing') return;
         createDoubtElement();
         const spawnRate = Math.max(2000 - score * 50, 500);
         doubtSpawnInterval = setTimeout(spawnLoop, spawnRate);
@@ -218,24 +230,20 @@ const endGame = () => {
     gameState = 'finished';
     clearTimers();
     
+    doubtsOnScreen.forEach(d => {
+        clearTimeout(d.timeout);
+        d.element.onclick = null;
+        d.element.style.cursor = 'default';
+    });
+    
     if (score > highScore) {
         highScore = score;
         localStorage.setItem('doubtDestroyerHighScore', highScore.toString());
         updateHighScoreDisplay();
     }
     
-    showOverlay('¡Tiempo agotado!', `Tu puntuación final: ${score}`);
-
-    setTimeout(() => {
-        gameState = 'idle';
-        hideOverlay();
-        updateButtonState();
-        doubtsOnScreen.forEach(d => {
-             d.element.remove();
-             clearTimeout(d.timeout);
-        });
-        doubtsOnScreen = [];
-    }, 5000);
+    showOverlay('¡Juego Terminado!', `Tu puntuación: ${score}`);
+    updateButtonState();
 };
 
 // --- INITIALIZATION ---
@@ -253,5 +261,3 @@ async function initializeApp() {
 }
 
 document.addEventListener('DOMContentLoaded', initializeApp);
-export {};
-
