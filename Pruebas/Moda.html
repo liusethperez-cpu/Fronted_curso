@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imagin IA — Redescubre tu esencia</title>
+  <link rel="stylesheet" href="estilo.moda.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header-sticky">
+    <div class="nav">
+      <a class="brand" href="#inicio">
+        <img src="imagenes/logo.jpg" alt="Imagin IA — logo" />
+        <div>
+          <div class="title">Imagin</div>
+        </div>
+      </a>
+
+      <button class="hamburger" aria-label="Abrir menú" id="menuBtn">☰</button>
+
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a class="cta" href="#servicios">Consulta Gratuita</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Seccion de inicio -->
+
+     <section id="inicio" class="hero" aria-labelledby="heroTitle">
+    <div class="hero-copy">
+      <h1 id="heroTitle">
+        Redescubre tu <span class="block">tu</span>
+        <br>
+        Esencia. <span class="accent">Renueva tu</span>
+        <br>
+        <span class="accent-strong">Imagen.</span>
+      </h1>
+
+      <p class="hero-lead">
+        Transforma tu imagen desde adentro hacia afuera. Nuestros servicios online de asesoría y belleza, potenciados por inteligencia artificial, te ayudan a reconectar contigo misma y proyectar la confianza que mereces.
+      </p>
+      <aside class="profile">
+        <img src="imagenes/asesora de moda.jpg" alt="ropa suelta">
+      </aside>
+
+      <div class="buttons">
+          <a class="cta" href="#servicios">Servicios</a>
+        </div>
+
+    </section>
+
+    <section id="servicios">
+      <div class="section-head">
+        <h2>Servicios</h2>
+        <p class="muted-small">Sesiones personalizadas, análisis de color, peinados y asesoría de estilo con apoyo de IA.</p>
+      </div>
+
+      <div class="cols">
+        <article class="card">
+          <h3>Análisis de imagen</h3>
+          <p class="muted">Informe personal con recomendaciones de estilo, paleta de color y propuestas visuales.</p>
+        </article>
+        <article class="card">
+          <h3>Asesoría en directo</h3>
+          <p class="muted">Sesiones online con profesionales que usan herramientas de IA para propuestas inmediatas.</p>
+        </article>
+        <article class="card">
+          <h3>Planes de renovación</h3>
+          <p class="muted">Programas escalables para transformar tu imagen paso a paso.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="equipo">
+      <h2>Nuestro equipo</h2>
+      <p class="muted">Profesionales en belleza y coaching que combinan experiencia humana y tecnología.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p class="muted">Escríbenos para una consulta gratuita de 10 minutos.</p>
+
+      <form aria-label="Formulario de contacto">
+        <input type="text" name="nombre" placeholder="Tu nombre" required />
+        <input type="email" name="email" placeholder="Tu email" required />
+        <textarea name="mensaje" placeholder="Cuéntanos brevemente qué buscas..."></textarea>
+        <div class="form-actions">
+          <button type="submit" class="cta">Enviar</button>
+          <button type="button" class="secondary">Llamar</button>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      <div class="muted-small">© Imagin IA — <span id="year">2025</span>. Todos los derechos reservados.</div>
+      <div class="muted-small">Diseño simple · Código claro</div>
+    </footer>
+  </main>
+  <script src="moda.js"></script>
+</body>
+</html>
+
+

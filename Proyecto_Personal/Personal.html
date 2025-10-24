@@ -1,116 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Imagin IA — Redescubre tu esencia</title>
-  <link rel="stylesheet" href="estilo-personal.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Liuseth Pérez Clavijo — Marketing Digital & Frontend</title>
+  <meta name="description" content="Portfolio de Liuseth Pérez — Marketing Digital y Frontend. Incluye modo claro/oscuro y un blog simple con formulario." />
+  <link rel="stylesheet" href="estilo-personal.css" />
+  <!-- Fuente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header-sticky">
-    <div class="nav">
-      <a class="brand" href="#inicio">
-        <img src="imagenes/logo.jpg" alt="Imagin IA — logo" />
-        <div>
-          <div class="title">Imagin</div>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="/Proyecto_Personal/imagenes/logo.svg" alt="Logo / avatar" class="brand-logo" />
+        <div class="brand-text"></div>
         </div>
-      </a>
+      </div>
 
-      <button class="hamburger" aria-label="Abrir menú" id="menuBtn">☰</button>
-
-      <nav aria-label="Navegación principal">
+      <nav role="navigation" aria-label="Menú principal" class="main-nav">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#blog">Blog</a></li>
           <li><a href="#contacto">Contacto</a></li>
-          <li><a class="cta" href="#servicios">Consulta Gratuita</a></li>
         </ul>
       </nav>
+
+      <!-- Botón claro/oscuro visible en la cabecera (se usa para revelar el "secreto") -->
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Cambiar tema claro/oscuro">
+          <span class="moon" aria-hidden="true">🌙</span>
+          <span class="sun" aria-hidden="true">☀️</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
-
-    <!-- Seccion de inicio -->
-
-     <section id="inicio" class="hero" aria-labelledby="heroTitle">
-    <div class="hero-copy">
-      <h1 id="heroTitle">
-        Redescubre tu <span class="block">tu</span>
-        <br>
-        Esencia. <span class="accent">Renueva tu</span>
-        <br>
-        <span class="accent-strong">Imagen.</span>
-      </h1>
-
-      <p class="hero-lead">
-        Transforma tu imagen desde adentro hacia afuera. Nuestros servicios online de asesoría y belleza, potenciados por inteligencia artificial, te ayudan a reconectar contigo misma y proyectar la confianza que mereces.
-      </p>
-      <aside class="profile">
-        <img src="imagenes/asesora de moda.jpg" alt="ropa suelta">
-      </aside>
-
-      <div class="buttons">
-          <a class="cta" href="#servicios">Servicios</a>
+  <main>
+    <!-- HERO: ahora con scroll-snap -->
+    <section class="hero panel" id="inicio" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <h1 id="hero-title">Liuseth Pérez Clavijo</h1>
+          <p class="subtitle">Marketing Digital & Frontend Developer</p>
+          <p class="location">🇻🇪 🇪🇸 | Women in Tech | Mamá 👶</p>
+          <div class="hero-actions">
+            <a href="#proyectos" class="btn primary">Ver Proyectos</a>
+            <a href="#contacto" class="btn ghost">Contactar</a>
+          </div>
         </div>
-
-    </section>
-
-    <section id="servicios">
-      <div class="section-head">
-        <h2>Servicios</h2>
-        <p class="muted-small">Sesiones personalizadas, análisis de color, peinados y asesoría de estilo con apoyo de IA.</p>
-      </div>
-
-      <div class="cols">
-        <article class="card">
-          <h3>Análisis de imagen</h3>
-          <p class="muted">Informe personal con recomendaciones de estilo, paleta de color y propuestas visuales.</p>
-        </article>
-        <article class="card">
-          <h3>Asesoría en directo</h3>
-          <p class="muted">Sesiones online con profesionales que usan herramientas de IA para propuestas inmediatas.</p>
-        </article>
-        <article class="card">
-          <h3>Planes de renovación</h3>
-          <p class="muted">Programas escalables para transformar tu imagen paso a paso.</p>
-        </article>
+        <div class="hero-right">
+          <img src="/Proyecto_Personal/imagenes/liusethPerez.jpeg" alt="Ilustración" class="hero-image" />
+        </div>
       </div>
     </section>
 
-    <section id="equipo">
-      <h2>Nuestro equipo</h2>
-      <p class="muted">Profesionales en belleza y coaching que combinan experiencia humana y tecnología.</p>
-    </section>
-
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p class="muted">Escríbenos para una consulta gratuita de 10 minutos.</p>
-
-      <form aria-label="Formulario de contacto">
-        <input type="text" name="nombre" placeholder="Tu nombre" required />
-        <input type="email" name="email" placeholder="Tu email" required />
-        <textarea name="mensaje" placeholder="Cuéntanos brevemente qué buscas..."></textarea>
-        <div class="form-actions">
-          <button type="submit" class="cta">Enviar</button>
-          <button type="button" class="secondary">Llamar</button>
+    <div class="container">
+      <section id="sobre-mi" class="panel fade-in" aria-labelledby="sobre-mi-title">
+        <h2 id="sobre-mi-title">Sobre Mí</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>¡Hola! 👋 Soy una profesional con más de 10 años de experiencia en Marketing Digital estratégico, ahora estoy en formación de Desarrollo Frontend para construir soluciones que no solo funcionen, sino que también vendan. B..</p>
+            <p>Mi enfoque combina estrategia y creatividad para crear experiencias digitales que conectan marcas con personas. Apasionada por la moda y la tecnología.</p>
+            <p>Como miembro y cofundadora de la comunidad WiTech de Adevinta Spain, defiendo la diversidad y el empoderamiento femenino en el ámbito tecnológico.</p>
+          </div>
+          <div class="about-image">
+            <img src="/Proyecto_Personal/imagenes/ilustracion-programar.png" alt="Ilustración de una mujer trabajando en un portátil">
+          </div>
         </div>
-      </form>
-    </section>
+      </section>
 
-    <footer>
-      <div class="muted-small">© Imagin IA — <span id="year">2025</span>. Todos los derechos reservados.</div>
-      <div class="muted-small">Diseño simple · Código claro</div>
-    </footer>
+      <section id="habilidades" class="panel fade-in" aria-labelledby="habilidades-title">
+        <h2 id="habilidades-title">Habilidades</h2>
+        <div class="skills-grid">
+          <div class="card">
+            <h3>📈 Marketing Digital</h3>
+            <ul>
+              <li>Estrategia Digital</li>
+              <li>SEO/SEM</li>
+              <li>Social Media Marketing</li>
+              <li>Content Marketing</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>💻 Frontend</h3>
+            <ul>
+              <li>HTML5 & CSS3</li>
+              <li>JavaScript</li>
+              <li>Responsive Design</li>
+              <li>Git & GitHub</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🛠️ Herramientas</h3>
+            <ul>
+              <li>Figma</li>
+              <li>Adobe Suite</li>
+              <li>Google Analytics</li>
+              <li>VS Code</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyectos" class="panel fade-in" aria-labelledby="proyectos-title">
+        <h2 id="proyectos-title">Proyectos</h2>
+        <div class="filters" role="toolbar" aria-label="Filtros de proyectos">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="marketing">Marketing</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+        </div>
+
+        <div class="projects-gallery" id="projectsGallery">
+          <div class="project-item" data-category="marketing" data-index="0" tabindex="0">
+            <div class="project-image">🛍️</div>
+            <h3>Campaña E-commerce Moda</h3>
+          </div>
+          <div class="project-item" data-category="frontend" data-index="1" tabindex="0">
+            <div class="project-image">💻</div>
+            <h3>Portfolio Responsivo</h3>
+          </div>
+          <div class="project-item" data-category="marketing" data-index="2" tabindex="0">
+            <div class="project-image">📱</div>
+            <h3>Estrategia Social Media</h3>
+          </div>
+          <div class="project-item" data-category="frontend" data-index="3" tabindex="0">
+            <div class="project-image">🌐</div>
+            <h3>App de Gestión de Tareas</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog con formulario -->
+      <section id="blog" class="panel fade-in" aria-labelledby="blog-title">
+        <div class="blog-header">
+          <h2 id="blog-title">Blog</h2>
+          <p class="muted">Publicaciones breves, aprendizajes y tips</p> 
+        <!-- Los posts se guardan en tu navegador (localStorage). -->
+        </div>
+
+        <div class="blog-grid">
+          <div class="blog-posts" id="postsList" aria-live="polite"></div>
+
+          <aside class="blog-form-card">
+            <h3>Crear publicación</h3>
+            <form id="postForm" novalidate>
+              <label for="postTitle">Título</label>
+              <input id="postTitle" name="title" type="text" placeholder="Ej: 5 tips de UX" required />
+
+              <label for="postContent">Contenido</label>
+              <textarea id="postContent" name="content" rows="6" placeholder="Escribe aquí tu contenido..." required></textarea>
+
+              <label for="postCategory">Categoría</label>
+              <select id="postCategory" name="category">
+                <option value="general">General</option>
+                <option value="marketing">Marketing</option>
+                <option value="frontend">Frontend</option>
+              </select>
+
+              <div class="form-actions">
+                <button type="submit" class="btn primary">Publicar</button>
+                <button type="button" id="clearPosts" class="btn ghost">Limpiar posts</button>
+              </div>
+
+              <div id="formMessage" class="form-message" aria-hidden="true"></div>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section id="contacto" class="contact-section panel fade-in" aria-labelledby="contacto-title">
+        <h2 id="contacto-title">¿Trabajamos Juntas?</h2>
+        <a href="mailto:maria@email.com" class="btn primary">Envíame un Email</a>
+      </section>
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span>Liuseth Pérez. Hecho con 💜</p>
+      <p><a href="https://www.linkedin.com/in/liuseth/">linkedin.com/in/liuseth</a></p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal (proyectos) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+      <div class="lightbox-image" id="lightboxImage"></div>
+      <div class="lightbox-info">
+        <h3 id="lightboxTitle"></h3>
+        <p id="lightboxDescription"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECRET CARD: se revela cuando el modo oscuro está activo -->
+  <div id="secretCard" class="secret-card" aria-hidden="true" role="status">
+    <button id="closeSecret" class="secret-close" aria-label="Cerrar secreto">&times;</button>
+    <h4>✨ Secreto Revelado ✨</h4>
+    <p class="secret-text">Me encanta estudiar cartas astrales, arquetipos y cómo la simbología ayuda a la creatividad. Y sí, algunas veces culpo a mercurio retro de mis bugs</p>
+    <div class="zodiac-list" aria-hidden="true">
+      <!-- emojis de ejemplo; cámbialos por SVGs si prefieres -->
+       <div class="zodiac-item">
+       <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Un círculo con los doce signos del zodiaco orbitando un centro brillante.">
+    <defs>
+        <radialGradient id="astroGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" style="stop-color:#f0e6f2; stop-opacity:1"></stop>
+            <stop offset="100%" style="stop-color:#e3e9f5; stop-opacity:1"></stop>
+        </radialGradient>
+    </defs>
+    <circle cx="60" cy="60" r="58" fill="url(#astroGradient)" stroke="#ddd" stroke-width="1"></circle>
+    <text x="60" y="60" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#333">✨</text>
+    <g font-size="14" text-anchor="middle" dominant-baseline="central" fill="#555" style="font-family: sans-serif;">
+        <text transform="rotate(0, 60, 60) translate(0, -45)" x="60" y="60">♈</text>
+        <text transform="rotate(30, 60, 60) translate(0, -45)" x="60" y="60">♉</text>
+        <text transform="rotate(60, 60, 60) translate(0, -45)" x="60" y="60">♊</text>
+        <text transform="rotate(90, 60, 60) translate(0, -45)" x="60" y="60">♋</text>
+        <text transform="rotate(120, 60, 60) translate(0, -45)" x="60" y="60">♌</text>
+        <text transform="rotate(150, 60, 60) translate(0, -45)" x="60" y="60">♍</text>
+        <text transform="rotate(180, 60, 60) translate(0, -45)" x="60" y="60">♎</text>
+        <text transform="rotate(210, 60, 60) translate(0, -45)" x="60" y="60">♏</text>
+        <text transform="rotate(240, 60, 60) translate(0, -45)" x="60" y="60">♐</text>
+        <text transform="rotate(270, 60, 60) translate(0, -45)" x="60" y="60">♑</text>
+        <text transform="rotate(300, 60, 60) translate(0, -45)" x="60" y="60">♒</text>
+        <text transform="rotate(330, 60, 60) translate(0, -45)" x="60" y="60">♓</text>
+    </g>
+</svg>
+       </div>
+    </div>
+    <small class="secret-note">Aparece en modo oscuro como un pequeño guiño personal ✨</small>
+  </div>
+
   <script src="personal.js"></script>
 </body>
 </html>
-
-
