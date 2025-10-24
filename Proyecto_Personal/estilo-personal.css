@@ -34,14 +34,11 @@ body{
   background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);
   color:var(--dark);
   line-height:1.45;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeSpeed;
 }
 h1,h2,h3,h4,h5,h6,p{margin:0;}
 img,picture,video,canvas,svg{
     display:block;
-    max-width:70%;}
+    max-width:60%;}
 
 /* --- Navegación (sin cambios) --- */
 .nav-link {
@@ -393,8 +390,11 @@ footer{
 .muted{ color:var(--muted); font-size:0.95rem; }
 .muted-small{ color:var(--muted); font-size:0.85rem; }
 
-/* role=button (sin cambios) */
-a[role="button"]{ cursor:pointer; }
+/* boton servicios debajo de imagen */
+.buttons {
+   cursor:pointer; 
+   
+  }
 
 /* --- Responsive (sin cambios) --- */
 @media (max-width:980px){
