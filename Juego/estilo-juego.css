@@ -1,0 +1,515 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0e6ff 30%, #fff0f5 60%, #e6f3ff 100%);
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  color: #2c3e50;
+}
+
+html {
+  height: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Fondo espiritual con mandalas sutiles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(186, 85, 211, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(72, 187, 120, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(66, 153, 225, 0.03) 0%, transparent 70%);
+  z-index: -2;
+  animation: spiritualFlow 30s ease-in-out infinite;
+}
+
+@keyframes spiritualFlow {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  33% { transform: rotate(1deg) scale(1.02); }
+  66% { transform: rotate(-1deg) scale(0.98); }
+}
+
+/* Elementos decorativos espirituales */
+body::after {
+  content: '✨ 🌸 🦋 🌿 ☯ 🕊️ 💫 🌺 🍃 ✨';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1.8rem;
+  color: rgba(186, 85, 211, 0.1);
+  z-index: -1;
+  animation: gentleFloat 40s linear infinite;
+  pointer-events: none;
+  word-spacing: 120px;
+  line-height: 180px;
+}
+
+@keyframes gentleFloat {
+  0% { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-150px) rotate(180deg); }
+}
+
+.header {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 35px 40px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+  border-bottom: 3px solid transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                    linear-gradient(90deg, #ba55d3, #48bb78, #4299e1);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.title-wrap {
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  margin: 25px 0;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  position: relative;
+  line-height: 1.3;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Logo espiritual con loto */
+h1::before {
+  content: '';
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  margin-right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='lotus' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ba55d3'/%3E%3Cstop offset='50%25' style='stop-color:%23d8b4fe'/%3E%3Cstop offset='100%25' style='stop-color:%2348bb78'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M50 20 C35 25 25 35 25 50 C25 65 35 75 50 80 C65 75 75 65 75 50 C75 35 65 25 50 20 Z' fill='url(%23lotus)' opacity='0.8'/%3E%3Cpath d='M50 25 C40 30 35 40 35 50 C35 60 40 70 50 75 C60 70 65 60 65 50 C65 40 60 30 50 25 Z' fill='url(%23lotus)' opacity='0.6'/%3E%3Cpath d='M50 30 C45 35 42 42 42 50 C42 58 45 65 50 70 C55 65 58 58 58 50 C58 42 55 35 50 30 Z' fill='white' opacity='0.9'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23ffd700' opacity='0.8'/%3E%3C/svg%3E");
+  background-size: contain;
+  vertical-align: middle;
+  animation: lotusBreath 6s ease-in-out infinite;
+}
+
+@keyframes lotusBreath {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.08) rotate(5deg); opacity: 1; }
+}
+
+.subtitle {
+  color: #4a5568;
+  font-size: 1.15rem;
+  margin: 25px auto;
+  max-width: 700px;
+  line-height: 1.7;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.hud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.score-board, .timer, .highscore {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 18px 26px;
+  border-radius: 18px;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #2d3748;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.score-board:hover, .timer:hover, .highscore:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.score-board::before {
+  content: '🌸';
+  font-size: 1.4rem;
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.timer::before {
+  content: '⏳';
+  font-size: 1.4rem;
+  animation: timeFlow 2s ease-in-out infinite;
+}
+
+.highscore::before {
+  content: '👑';
+  font-size: 1.4rem;
+  color: #d4af37;
+  animation: crownGlow 4s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes timeFlow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@keyframes crownGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.settings {
+  display: flex;
+  gap: 15px;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.settings label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.settings label:hover {
+  color: #2d3748;
+}
+
+.settings input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #ba55d3;
+}
+
+.btn {
+  background: linear-gradient(135deg, #ba55d3 0%, #9f7aea 50%, #48bb78 100%);
+  color: white;
+  border: none;
+  padding: 18px 35px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(186, 85, 211, 0.25);
+  text-transform: none;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.8s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(186, 85, 211, 0.35);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.game-area {
+  position: relative;
+  min-height: 500px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.game-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 30% 30%, rgba(186, 85, 211, 0.03) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(72, 187, 120, 0.03) 0%, transparent 60%);
+  animation: auraShift 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes auraShift {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.02); }
+}
+
+.thought {
+  position: absolute;
+  padding: 22px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 400;
+  color: #2d3748;
+  max-width: 320px;
+  animation: thoughtEmerge 0.6s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 2px solid rgba(186, 85, 211, 0.1);
+  backdrop-filter: blur(10px);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+@keyframes thoughtEmerge {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.7) translateY(30px) rotate(-5deg); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0) rotate(0deg); 
+  }
+}
+
+.thought::before {
+  content: '💭';
+  font-size: 1.5rem;
+  animation: thoughtBreathe 4s ease-in-out infinite;
+}
+
+@keyframes thoughtBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.thought:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(186, 85, 211, 0.3);
+}
+
+.thought.healing {
+  background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+  border-color: rgba(72, 187, 120, 0.3);
+  color: #2d5016;
+}
+
+.thought.healing::before {
+  content: '🌿';
+  animation: healingGlow 2s ease-in-out infinite;
+}
+
+@keyframes healingGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 8px rgba(72, 187, 120, 0.4)); }
+}
+
+.thought.clicked {
+  animation: thoughtTransform 0.8s ease-out forwards;
+}
+
+@keyframes thoughtTransform {
+  0% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.2) rotate(10deg); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(0.3) rotate(45deg); 
+    opacity: 0; 
+  }
+}
+
+.healing-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(72, 187, 120, 0.3);
+  z-index: 1000;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  animation: messageAppear 0.5s ease-out;
+}
+
+@keyframes messageAppear {
+  0% { 
+    opacity: 0; 
+    transform: translate(-50%, -50%) scale(0.8); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+}
+
+.healing-message h3 {
+  color: #2d5016;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.healing-message p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.healing-message button {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.healing-message button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(72, 187, 120, 0.3);
+}
+
+footer {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 25px 40px;
+  text-align: center;
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.6;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .header {
+    padding: 25px 20px;
+  }
+
+  .hud {
+    gap: 15px;
+    padding: 20px;
+    flex-direction: column;
+  }
+
+  .score-board, .timer, .highscore {
+    font-size: 1rem;
+    padding: 15px 22px;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 16px 30px;
+  }
+
+  .thought {
+    max-width: 280px;
+    padding: 18px 25px;
+    font-size: 0.95rem;
+  }
+
+  .game-area {
+    margin: 20px;
+    padding: 25px;
+  }
+
+  footer {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .thought {
+    max-width: 240px;
+    padding: 16px 22px;
+  }
+
+  .healing-message {
+    padding: 25px 30px;
+  }
+}

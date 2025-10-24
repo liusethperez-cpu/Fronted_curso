@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>¡Tú Puedes! — Destruye las Dudas</title>
+  <link rel="stylesheet" href="estilo-juego.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="title-wrap">
+      <h1>¡Destruye las Dudas!</h1>
+      <p class="subtitle">Haz clic o toca los pensamientos antes de que desaparezcan. ¡Aumenta la dificultad con tu puntuación!</p>
+    </div>
+
+    <div class="hud">
+      <div class="score-board" aria-live="polite">Puntuación: <span id="score">0</span></div>
+      <div class="timer" aria-live="polite">Tiempo: <span id="time">00:30</span></div>
+      <div class="highscore">Récord: <span id="highscore">0</span></div>
+      <button id="startButton" class="btn">¡Empezar (30 s)!</button>
+    </div>
+  </header>
+
+  <main id="game-area" class="game-area" aria-label="Área de juego" role="application">
+    <!-- Los pensamientos se generarán aquí -->
+  </main>
+
+  <!-- Sonidos (opcionales). Si no quieres sonidos, puedes comentar las filas <audio>. -->
+  <audio id="popSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+  <audio id="bombSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+
+  <script src="juego.js"></script>
+</body>
+</html>
