@@ -1,42 +1,63 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM refs
-  const navLinks = document.querySelectorAll('nav a');
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectItems = document.querySelectorAll('.project-item');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxClose = document.querySelector('.lightbox-close');
-  const lbImage = document.getElementById('lightboxImage');
-  const lbTitle = document.getElementById('lightboxTitle');
-  const lbDesc = document.getElementById('lightboxDescription');
 
+  // --- DATA DE PROYECTOS ---
+  const projects = [
+    {
+      emoji: '🛍️',
+      title: 'Campaña E-commerce Moda',
+      description: 'Estrategia digital completa para una marca de moda, enfocada en aumentar la visibilidad y las ventas online. Se implementaron campañas de SEO, SEM y redes sociales, logrando un notable incremento en ventas.'
+    },
+    {
+      emoji: '💻',
+      title: 'Portfolio Responsivo',
+      description: 'Desarrollo de un portfolio personal desde cero utilizando HTML, CSS y JavaScript. El diseño es completamente responsivo, asegurando una experiencia de usuario óptima en cualquier dispositivo, desde móviles a ordenadores de escritorio.'
+    },
+    {
+      emoji: '📱',
+      title: 'Estrategia Social Media',
+      description: 'Gestión integral de redes sociales para varias marcas. Creación de calendarios de contenido, community management y análisis de métricas para optimizar el engagement y el crecimiento de la comunidad online.'
+    },
+    {
+      emoji: '🌐',
+      title: 'App de Gestión de Tareas',
+      description: 'Aplicación web simple para gestionar tareas diarias. Permite a los usuarios añadir, eliminar y marcar tareas como completadas. Desarrollada con JavaScript para practicar la manipulación del DOM y el estado local.'
+    }
+  ];
+
+  // --- CAMBIO DE TEMA (CLARO/OSCURO) ---
   const themeToggle = document.getElementById('themeToggle');
-  const body = document.body;
   const secretCard = document.getElementById('secretCard');
-  const closeSecretBtn = document.getElementById('closeSecret');
+  const closeSecret = document.getElementById('closeSecret');
+  const htmlEl = document.documentElement;
 
-  const postsListEl = document.getElementById('postsList');
-  const postForm = document.getElementById('postForm');
-  const clearPostsBtn = document.getElementById('clearPosts');
-  const formMsg = document.getElementById('formMessage');
+  // Cargar tema guardado
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', savedTheme);
+  if (savedTheme === 'dark') {
+    secretCard.classList.add('visible');
+  }
 
-  const yearEl = document.getElementById('year');
+  themeToggle.addEventListener('click', () => {
+    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
 
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // smooth scroll
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href || !href.startsWith('#')) return;
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    // Mostrar/ocultar tarjeta secreta
+    if (newTheme === 'dark') {
+      secretCard.classList.add('visible');
+    } else {
+      secretCard.classList.remove('visible');
+    }
+  });
+  
+  closeSecret.addEventListener('click', () => {
+      secretCard.classList.remove('visible');
   });
 
-  // fade-in observer
+
+  // --- ANIMACIÓN FADE-IN EN SCROLL ---
+  const fadeElements = document.querySelectorAll('.fade-in');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -44,181 +65,138 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-  fadeEls.forEach(el => observer.observe(el));
+  }, { threshold: 0.1 });
 
-  // projects filter
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
+  fadeElements.forEach(el => observer.observe(el));
+
+
+  // --- FILTRO DE PROYECTOS ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const filter = button.dataset.filter;
+
       projectItems.forEach(item => {
-        const cat = item.dataset.category;
-        item.style.display = (filter === 'all' || filter === cat) ? 'block' : 'none';
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
       });
     });
   });
 
-  // lightbox
-  const projects = [
-    { emoji: '🛍️', title: 'Campaña E-commerce Moda', description: 'Estrategia digital, SEO y campañas pagas para aumentar ventas.' },
-    { emoji: '💻', title: 'Portfolio Responsivo', description: 'Diseño y desarrollo del portfolio, mobile first.' },
-    { emoji: '📱', title: 'Estrategia Social Media', description: 'Calendarios, contenido y análisis de métricas.' },
-    { emoji: '🌐', title: 'App de Gestión de Tareas', description: 'App simple para seguimiento de tareas con JS vanilla.' }
-  ];
+
+  // --- LIGHTBOX MODAL DE PROYECTOS ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.querySelector('.lightbox-close');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxDescription = document.getElementById('lightboxDescription');
+
   projectItems.forEach(item => {
-    item.addEventListener('click', () => openLightbox(projects[parseInt(item.dataset.index,10)]));
-    item.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(projects[parseInt(item.dataset.index,10)]); });
+    item.addEventListener('click', () => {
+      const projectIndex = item.dataset.index;
+      const projectData = projects[projectIndex];
+
+      lightboxImage.innerText = projectData.emoji;
+      lightboxTitle.innerText = projectData.title;
+      lightboxDescription.innerText = projectData.description;
+
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
   });
-  function openLightbox(data){
-    lbImage.innerText = data.emoji;
-    lbTitle.innerText = data.title;
-    lbDesc.innerText = data.description;
-    lightbox.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
   }
-  function closeLightbox(){
-    lightbox.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
+
   lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') closeLightbox(); });
-
-  // THEME toggle + SECRET: persist in localStorage, reveal/hide secret with class
-  const THEME_KEY = 'portfolio_theme';
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  if (savedTheme === 'dark') {
-    body.classList.add('dark-theme');
-    if (secretCard) secretCard.classList.add('visible-secret');
-  }
-  updateThemeButton();
-
-  themeToggle.addEventListener('click', () => {
-    const isDark = body.classList.toggle('dark-theme');
-    localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
-    updateThemeButton();
-    if (isDark) revealSecret();
-    else hideSecret();
-    // ensure control is still reachable: focus the toggle (accessibility)
-    try { themeToggle.focus(); } catch(e){}
-  });
-
-  function updateThemeButton(){
-    const pressed = body.classList.contains('dark-theme');
-    themeToggle.setAttribute('aria-pressed', String(pressed));
-    themeToggle.title = pressed ? 'Tema: Oscuro (clic para claro)' : 'Tema: Claro (clic para oscuro)';
-  }
-
-  let secretTimeout = null;
-  function revealSecret(){
-    if (!secretCard) return;
-    secretCard.setAttribute('aria-hidden','false');
-    secretCard.classList.add('visible-secret');
-    if (secretTimeout) clearTimeout(secretTimeout);
-    secretTimeout = setTimeout(() => {
-      // auto-hide after some seconds but only if user didn't switch theme back
-      if (!body.classList.contains('dark-theme')) { hideSecret(); return; }
-      hideSecret(); // still hide after 12s even if dark
-    }, 12000);
-  }
-  function hideSecret(){
-    if (!secretCard) return;
-    secretCard.setAttribute('aria-hidden','true');
-    secretCard.classList.remove('visible-secret');
-    if (secretTimeout) { clearTimeout(secretTimeout); secretTimeout = null; }
-  }
-  if (closeSecretBtn) closeSecretBtn.addEventListener('click', hideSecret);
-
-  document.addEventListener('click', (e) => {
-    if (!secretCard) return;
-    // if secret is visible and click outside it (and not on toggle), hide
-    if (secretCard.classList.contains('visible-secret')) {
-      if (!secretCard.contains(e.target) && e.target !== themeToggle) {
-        hideSecret();
-      }
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
     }
   });
 
-  // BLOG (localStorage)
-  const POSTS_KEY = 'portfolio_posts';
-  function loadPosts(){ try { const raw = localStorage.getItem(POSTS_KEY); return raw ? JSON.parse(raw) : []; } catch { return []; } }
-  function savePosts(posts){ localStorage.setItem(POSTS_KEY, JSON.stringify(posts)); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
 
-  function renderPosts(){
-    const posts = loadPosts();
-    postsListEl.innerHTML = '';
-    if (!posts.length) { postsListEl.innerHTML = `<p class="muted">Aún no hay publicaciones. Usa el formulario para crear la primera.</p>`; return; }
-    posts.slice().reverse().forEach((post) => {
-      const card = document.createElement('article');
-      card.className = 'post-card enter';
-      card.setAttribute('tabindex','0');
 
-      const meta = document.createElement('div');
-      meta.className = 'post-meta';
-      meta.innerHTML = `<span>${new Date(post.date).toLocaleString()}</span><span class="muted">${post.category}</span>`;
+  // --- BLOG CON LOCALSTORAGE ---
+  const postForm = document.getElementById('postForm');
+  const postsList = document.getElementById('postsList');
+  const clearPostsBtn = document.getElementById('clearPosts');
+  const formMessage = document.getElementById('formMessage');
 
-      const title = document.createElement('h4'); title.className = 'post-title'; title.textContent = post.title;
-      const content = document.createElement('div'); content.className = 'post-content'; content.textContent = post.content;
-      const actions = document.createElement('div'); actions.style.marginTop = '10px';
-      const deleteBtn = document.createElement('button'); deleteBtn.className = 'btn ghost'; deleteBtn.textContent = 'Eliminar';
-      deleteBtn.addEventListener('click', () => { if (!confirm('¿Eliminar esta publicación?')) return; deletePost(post.id); });
+  let posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
 
-      actions.appendChild(deleteBtn);
-      card.appendChild(meta);
-      card.appendChild(title);
-      card.appendChild(content);
-      card.appendChild(actions);
-      postsListEl.appendChild(card);
+  const renderPosts = () => {
+    postsList.innerHTML = '';
+    if (posts.length === 0) {
+        postsList.innerHTML = '<p class="muted">Aún no hay publicaciones. ¡Crea la primera!</p>';
+        return;
+    }
+    posts.forEach(post => {
+      const postEl = document.createElement('article');
+      postEl.classList.add('blog-post');
+      postEl.innerHTML = `
+        <h4>${post.title}</h4>
+        <p class="post-meta">${post.category}</p>
+        <p>${post.content}</p>
+      `;
+      postsList.appendChild(postEl);
     });
-  }
-
-  function addPost({ title, content, category }){
-    const posts = loadPosts();
-    const newPost = { id: Date.now().toString(), title: title.trim(), content: content.trim(), category: category || 'general', date: new Date().toISOString() };
-    posts.push(newPost);
-    savePosts(posts);
-    renderPosts();
-    showFormMessage('Publicación creada ✔', true);
-  }
-
-  function deletePost(id){
-    const posts = loadPosts().filter(p => p.id !== id);
-    savePosts(posts);
-    renderPosts();
-    showFormMessage('Publicación eliminada', true);
-  }
-
-  function clearAllPosts(){
-    if (!confirm('¿Eliminar todas las publicaciones? Esta acción no se puede deshacer.')) return;
-    localStorage.removeItem(POSTS_KEY);
-    renderPosts();
-    showFormMessage('Todas las publicaciones fueron eliminadas', true);
-  }
-
-  function showFormMessage(text, success = true){
-    formMsg.textContent = text;
-    formMsg.style.color = success ? 'var(--accent-2)' : 'crimson';
-    formMsg.setAttribute('aria-hidden','false');
-    setTimeout(()=> { formMsg.textContent = ''; formMsg.setAttribute('aria-hidden','true'); }, 3500);
-  }
+  };
 
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const title = document.getElementById('postTitle').value;
-    const content = document.getElementById('postContent').value;
-    const category = document.getElementById('postCategory').value;
-    if (!title.trim() || !content.trim()) { showFormMessage('Completa título y contenido.', false); return; }
-    addPost({ title, content, category });
+    const title = e.target.title.value.trim();
+    const content = e.target.content.value.trim();
+    const category = e.target.category.value;
+
+    if (!title || !content) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
+    const newPost = { title, content, category, date: new Date().toISOString() };
+    posts.unshift(newPost);
+    localStorage.setItem('blogPosts', JSON.stringify(posts));
+    
+    renderPosts();
     postForm.reset();
+    
+    formMessage.textContent = '¡Publicación creada con éxito!';
+    formMessage.classList.add('visible');
+    setTimeout(() => {
+        formMessage.classList.remove('visible');
+    }, 3000);
+  });
+  
+  clearPostsBtn.addEventListener('click', () => {
+      if(confirm('¿Seguro que quieres borrar todas las publicaciones? Esta acción no se puede deshacer.')) {
+          posts = [];
+          localStorage.removeItem('blogPosts');
+          renderPosts();
+      }
   });
 
-  if (clearPostsBtn) clearPostsBtn.addEventListener('click', clearAllPosts);
-
+  // Renderizar posts al cargar la página
   renderPosts();
+  
+  // --- ACTUALIZAR AÑO EN FOOTER ---
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Accessibility: only show focus outlines when using Tab
-  document.addEventListener('keydown', (e) => { if (e.key === 'Tab') document.body.classList.add('user-is-tabbing'); });
 });
-document.addEventListener('mousedown', () => { document.body.classList.remove('user-is-tabbing'); });
