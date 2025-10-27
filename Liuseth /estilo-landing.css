@@ -1,0 +1,276 @@
+
+:root{
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --text: #0f1724;
+  --muted: #6b7280;
+  --accent-start: #6a8cff;
+  --accent-end: #9b59ff;
+  --shadow: 0 10px 30px rgba(2,6,23,0.06);
+  --shadow-strong: 0 18px 40px rgba(2,6,23,0.08);
+  --radius: 12px;
+  --container: 1100px;
+  --header-height: 72px;
+  --transition: 180ms ease;
+}
+
+/* TEMA OSCURO */
+body.dark{
+  --bg: #071227;
+  --card: rgba(255,255,255,0.03);
+  --text: #e6eef8;
+  --muted: #9aa7bf;
+  --accent-start: #9b59ff;
+  --accent-end: #6a8cff;
+  --shadow: 0 14px 40px rgba(3,8,20,0.6);
+}
+
+/* RESET / BASE */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg), #eaf0ff);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.45;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+main { padding-top: calc(var(--header-height) + 0.5rem); }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* HEADER */
+.site-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 60; /* aseguramos que la card tenga mayor z-index */
+  background: rgba(255,255,255,0.94);
+  display:flex;
+  align-items:center;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(15,23,36,0.04);
+}
+body.dark .site-header{
+  background: linear-gradient(180deg, rgba(7,10,20,0.6), rgba(7,10,20,0.3));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.header-inner{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding: 0 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+/* BRAND */
+.brand {
+  display:flex;
+  gap:0.8rem;
+  align-items:center;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:700;
+}
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-block;
+  object-fit: cover;      /* mantiene la proporción de la imagen */
+  vertical-align: middle;
+  box-shadow: var(--shadow);
+}
+.brand-text {
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+
+/* NAV */
+.nav ul { list-style:none; margin:0; padding:0; display:flex; gap:1rem; align-items:center; }
+.nav a {
+  color: var(--muted);
+  text-decoration:none;
+  font-weight:600;
+  padding:10px 12px;
+  border-radius:8px;
+}
+.nav a:hover, .nav a:focus { color: var(--text); background: rgba(0,0,0,0.04); outline:none; }
+
+/* HEADER ACTIONS */
+.header-actions { display:flex; align-items:center; gap:0.75rem; }
+.nav-toggle { display:none; background:none; border:0; cursor:pointer; padding:8px; }
+.hamburger {
+  width:26px; height:2px; background:var(--text); position:relative; display:block;
+}
+.hamburger::before, .hamburger::after {
+  content:""; position:absolute; left:0; width:26px; height:2px; background:var(--text);
+}
+.hamburger::before{ top:-8px; } .hamburger::after{ top:8px; }
+
+/* THEME TOGGLE (compatibilidad .secret-toggle y .theme-toggle) */
+.secret-toggle,
+.theme-toggle {
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:6px;
+  border-radius:8px;
+  font-size:18px;
+  transition: transform var(--transition);
+}
+.secret-toggle:hover,
+.theme-toggle:hover { transform: scale(1.08); }
+
+.secret-toggle:focus,
+.theme-toggle:focus{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(107,114,128,0.4);
+}
+
+/* ICONOS: luna en claro, sol en oscuro */
+.theme-toggle .sun { display: none; }
+.theme-toggle .moon { display: inline; }
+
+/* En modo oscuro: invertir (mostrar sol, ocultar luna) */
+body.dark .theme-toggle .sun { display: inline; }
+body.dark .theme-toggle .moon { display: none; }
+
+/* TRANSICIÓN SUAVE AL CAMBIAR TEMA */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 250ms ease, color 250ms ease,
+              border-color 250ms ease, box-shadow 250ms ease;
+}
+
+/* tarjeta informativa visible solo en modo oscuro */
+
+.dark-card {
+  display: none;
+}
+
+/* Mostrar solo en modo oscuro (cuando <body> tiene la clase .dark) */
+body.dark .dark-card {
+  display: block;
+
+  /* Posición: centrada horizontalmente y cerca del borde inferior */
+  position: fixed;
+  left: 80%;
+  bottom: 24px;
+  transform: translateX(-50%);
+
+  /* Tamaño y espacio interior */
+  width: 320px;
+  max-width: calc(100% - 32px);
+  padding: 12px;
+
+  /* Fondo semitransparente para que se lea sobre el fondo oscuro */
+  background: rgba(8, 12, 20, 0.75);
+
+  /* color de texto */
+  color: #eaf2ff;
+
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.45);
+  z-index: 120;
+}
+
+/* Área de la imagen, flex para centrar la imagen dentro del bloque */
+.dark-card-media {
+  height: 120px;
+  display: flex;
+  align-items: center;   /* centra verticalmente */
+  justify-content: center; /* centra horizontalmente */
+  overflow: hidden;
+}
+
+/* Imagen redonda y centrada */
+.dark-card-image {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover; /* mantiene proporción sin deformar */
+  display: block;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* Texto centrado y con buen contraste */
+.dark-card-content {
+  text-align: center;
+  padding-top: 10px;
+}
+.dark-card-content h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+.dark-card-content p {
+  margin: 0;
+  color: rgba(235, 245, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Ajuste en pantallas pequeñas */
+@media (max-width: 420px) {
+  body.dark .dark-card {
+    width: 92%;
+    bottom: 12px;
+    padding: 10px;
+  }
+  .dark-card-media { height: 100px; }
+  .dark-card-image { width: 90px; height: 90px; }
+}
+
+/* HERO SECTION */
+.hero { padding: 4rem 0; }
+
+/* Contenedor interno */
+.hero-inner {
+  display: block;  
+  gap: 1.5rem;
+}
+
+/* Texto del hero */
+.hero .lead {
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.hero .cta-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+/* Contenedor de la imagen */
+.hero-media {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/*  imagen se ajuste */
+.hero-media img {
+  display: block;      /* elimina gaps de línea */
+  width: 100%;         /* ocupa el ancho disponible del contenedor */
+  max-width: 520px;    /* no crecerá más que esto en pantallas grandes */
+  height: auto;        /* mantiene proporción */
+  margin-left: auto;
+  margin-right: auto;  /* centra horizontalmente */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-strong);
+}

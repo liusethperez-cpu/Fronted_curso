@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Marketing Specialist & Frontend Developer</title>
+  <meta name="description" content="Portfolio moderno con modo místico, galería columnar, video con likes y más." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo-landing.css">
+</head>
+<body>
+  <header class="site-header" role="banner"> 
+    <div class="header-inner">  
+        <a class="brand" href="#home" aria-label="Ir al inicio">
+                <!-- logo -->
+        <img src="/Proyecto_Personal/imagenes/logo.svg" alt="Logo LP" class="logo" />
+
+          <!-- texto de la marca -->
+        <span class="brand-text">Aspiring Frontend Developer</span>
+        </a>
+
+      <nav class="nav" id="main-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#about">Sobre mí</a></li>
+          <li><a href="#skills">Habilidades</a></li>
+          <li><a href="#projects">Proyectos</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Cambiar tema claro/oscuro">
+          <span class="moon" aria-hidden="true">🌙</span>
+          <span class="sun" aria-hidden="true">☀️</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- card  secreto en modo oscuro -->
+ <div class="dark-card" role="complementary" aria-hidden="true">
+  <div class="dark-card-media">
+    <img src="/Proyecto_Personal/imagenes/rueda-astros.svg" alt="rueda signos" class="dark-card-image">
+  </div>
+
+  <div class="dark-card-content">
+    <h3>✨ Secreto Revelado ✨</h3>
+    <p>Me encanta estudiar cartas astrales, arquetipos y cómo la simbología ayuda a la creatividad</p>
+  </div>
+</div>
+  </div>
+
+  <!-- Contenido principal por secciones -->
+  <main>
+    <!-- Hero Section -->
+   <section id="home" class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Impulso marcas & construyo experiencias</h1>
+        <p class="lead">Especialista en Marketing con formación en Frontend. Mi enfoque combina estrategia y creatividad para crear experiencias digitales que conectan marcas con personas. Apasionada por la moda y la tecnología.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn primary">Contáctame</a>
+          <a href="#projects" class="btn outline">Ver proyectos</a>
+        </div>
+      </div>
+      <div class="hero-media" aria-hidden="true">
+        <img src="/Proyecto_Personal/imagenes/ilustracion-programadora.png" alt="Ilustración de desarrollo frontend y marketing digital" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+        <p>&copy; 2025 Liuseth Pérez. Todos los derechos reservados.</p>
+        </div>
+  <script src="landing.js" defer></script>
+  <script src="toggle-theme.js" defer></script>
+</body>
+</html>
