@@ -1,30 +1,48 @@
-// script.js - correcciones hechas y persistencia de modo oscuro
+// v2-personal.js - Interactividad mejorada y correcciones
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('script.js cargado');
-
   // Footer year
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Mobile nav toggle
+  // Elements
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('main-nav');
+  const secretToggle = document.getElementById('secret-toggle');
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalImg = document.getElementById('modal-img');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const likeBtn = document.getElementById('like-btn');
+  const likeCountEl = document.getElementById('like-count');
+  const form = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  // Mobile nav toggle (toggling class instead of inline styles)
   if (navToggle && nav) {
     navToggle.addEventListener('click', () => {
       const expanded = navToggle.getAttribute('aria-expanded') === 'true';
       navToggle.setAttribute('aria-expanded', String(!expanded));
-      if (!expanded) {
-        nav.style.display = 'block';
-        navToggle.querySelector('.hamburger').style.transform = 'rotate(90deg)';
-      } else {
-        nav.style.display = '';
-        navToggle.querySelector('.hamburger').style.transform = '';
+      nav.classList.toggle('open');
+      // Animation of hamburger
+      navToggle.querySelector('.hamburger')?.animate(
+        expanded ? [{ transform: 'rotate(90deg)' }, { transform: 'rotate(0)' }] : [{ transform: 'rotate(0)' }, { transform: 'rotate(90deg)' }],
+        { duration: 180, fill: 'forwards' }
+      );
+    });
+
+    // Close nav with Escape for accessibility
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
       }
     });
   }
 
   // Secret toggle (místico) -> toggles body.dark and persists
-  const secretToggle = document.getElementById('secret-toggle');
   const body = document.body;
   const SECRET_KEY = 'portfolio_mystic_mode_v1';
   try {
@@ -33,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (secretToggle) secretToggle.setAttribute('aria-pressed', 'true');
     }
   } catch (err) {
-    console.warn('localStorage no accesible para secret mode', err);
+    // ignore if storage not available
   }
 
   if (secretToggle) {
@@ -42,21 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
       secretToggle.setAttribute('aria-pressed', String(enabled));
       try {
         localStorage.setItem(SECRET_KEY, enabled ? '1' : '0');
-      } catch (err) {
-        console.warn('no se pudo guardar secret mode en localStorage', err);
-      }
+      } catch (err) { /* ignore */ }
       secretToggle.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 250 });
     });
   }
 
-  // Modal (projects & certs)
-  const modal = document.getElementById('modal');
-  const modalClose = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  const modalImg = document.getElementById('modal-img');
-  const modalTitle = document.getElementById('modal-title');
-  const modalDesc = document.getElementById('modal-desc');
-
+  // Modal helpers
   function openModal({src, title, desc}) {
     if (!modal) return;
     modal.setAttribute('aria-hidden', 'false');
@@ -64,7 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalTitle) modalTitle.textContent = title || '';
     if (modalDesc) modalDesc.textContent = desc || '';
     document.body.style.overflow = 'hidden';
-    if (modalClose) modalClose.focus();
+    // Move focus to close button
+    modalClose?.focus();
   }
   function closeModal() {
     if (!modal) return;
@@ -73,20 +83,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
-  // Open project modal
+  // Projects: open modal unless the click was on a link (so links navigate to folder)
   document.querySelectorAll('.project').forEach(proj => {
-    proj.addEventListener('click', () => {
+    proj.addEventListener('click', (e) => {
+      // If the click originated inside an anchor (<a>), allow navigation
+      if (e.target.closest('a')) return;
       const src = proj.getAttribute('data-src') || proj.querySelector('img')?.src || '';
-      const title = proj.getAttribute('data-title') || '';
-      const desc = proj.getAttribute('data-desc') || '';
+      const title = proj.getAttribute('data-title') || proj.querySelector('.project-info h4')?.textContent || '';
+      const desc = proj.getAttribute('data-desc') || proj.querySelector('.project-info p')?.textContent || '';
       openModal({src, title, desc});
     });
+
     proj.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') proj.click();
+      if (e.key === 'Enter') {
+        // mimic click but avoid opening if focused element is a link
+        if (document.activeElement && document.activeElement.tagName.toLowerCase() === 'a') return;
+        proj.click();
+      }
     });
   });
 
-  // Cert buttons
+  // Cert botones (si existen)
   document.querySelectorAll('.view-cert').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-cert');
@@ -106,9 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && modal && modal.getAttribute('aria-hidden') === 'false') closeModal();
   });
 
-  // Video like counter
-  const likeBtn = document.getElementById('like-btn');
-  const likeCountEl = document.getElementById('like-count');
+  // Focus trap minimal (keep focus inside modal)
+  document.addEventListener('focusin', (e) => {
+    if (modal && modal.getAttribute('aria-hidden') === 'false') {
+      if (!modal.contains(e.target)) {
+        e.preventDefault();
+        modalClose?.focus();
+      }
+    }
+  });
+
+  // Like counter (persistente)
   const LIKE_KEY = 'video_like_count_v1';
   let likes = 0;
   try {
@@ -116,20 +141,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isNaN(likes)) likes = 0;
   } catch (err) { likes = 0; }
   if (likeCountEl) likeCountEl.textContent = String(likes);
-
   if (likeBtn) {
+    likeBtn.setAttribute('aria-pressed', likes > 0 ? 'true' : 'false');
     likeBtn.addEventListener('click', () => {
       likes++;
-      try { localStorage.setItem(LIKE_KEY, String(likes)); } catch (err) { console.warn('localStorage no disponible para likes'); }
+      try { localStorage.setItem(LIKE_KEY, String(likes)); } catch (err) { /* ignore */ }
       if (likeCountEl) likeCountEl.textContent = String(likes);
       likeBtn.setAttribute('aria-pressed', 'true');
       likeBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }], { duration: 220 });
     });
   }
 
-  // Contact form submit
-  const form = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
+  // Contact form submit (simulado)
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -158,12 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Reveal on scroll (simple)
-  const ro = new IntersectionObserver((entries) => {
+  // Reveal on scroll (intersection observer)
+  const ro = new IntersectionObserver((entries, observer) => {
     entries.forEach(ent => {
       if (ent.isIntersecting) {
         ent.target.classList.add('in-view');
-        ro.unobserve(ent.target);
+        observer.unobserve(ent.target);
       }
     });
   }, { threshold: 0.12 });
@@ -173,15 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ro.observe(el);
   });
 
-  // focus trap basic
-  document.addEventListener('focusin', (e) => {
-    if (modal && modal.getAttribute('aria-hidden') === 'false') {
-      if (!modal.contains(e.target)) {
-        e.preventDefault();
-        modalClose?.focus();
-      }
-    }
-  });
-
-  console.log('Interactividad inicializada');
+  // Done initializing
+  // (console logs removed for production readiness)
 });
