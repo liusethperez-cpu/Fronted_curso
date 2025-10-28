@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -9,21 +9,20 @@
   <link rel="stylesheet" href="estilo-landing.css">
 </head>
 <body>
+
+  <!-- Marca Logo -->
   <header class="site-header" role="banner"> 
     <div class="header-inner">  
-        <a class="brand" href="#home" aria-label="Ir al inicio">
-                <!-- logo -->
+      <a class="brand" href="#home" aria-label="Ir al inicio">
         <img src="/Proyecto_Personal/imagenes/logo.svg" alt="Logo LP" class="logo" />
-
-          <!-- texto de la marca -->
         <span class="brand-text">Aspiring Frontend Developer</span>
-        </a>
+      </a>
 
+      <!-- Menú de navegación -->
       <nav class="nav" id="main-nav" aria-label="Navegación principal">
         <ul>
           <li><a href="#about">Sobre mí</a></li>
-          <li><a href="#skills">Habilidades</a></li>
-          <li><a href="#projects">Proyectos</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
           <li><a href="#contact">Contacto</a></li>
         </ul>
       </nav>
@@ -36,46 +35,184 @@
       </div>
     </div>
   </header>
-  <!-- card  secreto en modo oscuro -->
- <div class="dark-card" role="complementary" aria-hidden="true">
-  <div class="dark-card-media">
-    <img src="/Proyecto_Personal/imagenes/rueda-astros.svg" alt="rueda signos" class="dark-card-image">
-  </div>
 
-  <div class="dark-card-content">
-    <h3>✨ Secreto Revelado ✨</h3>
-    <p>Me encanta estudiar cartas astrales, arquetipos y cómo la simbología ayuda a la creatividad</p>
-  </div>
-</div>
-  </div>
-
-  <!-- Contenido principal por secciones -->
-  <main>
-    <!-- Hero Section -->
-   <section id="home" class="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <h1>Impulso marcas & construyo experiencias</h1>
-        <p class="lead">Especialista en Marketing con formación en Frontend. Mi enfoque combina estrategia y creatividad para crear experiencias digitales que conectan marcas con personas. Apasionada por la moda y la tecnología.</p>
-        <div class="cta-row">
-          <a href="#contact" class="btn primary">Contáctame</a>
-          <a href="#projects" class="btn outline">Ver proyectos</a>
-        </div>
-      </div>
-      <div class="hero-media" aria-hidden="true">
-        <img src="/Proyecto_Personal/imagenes/ilustracion-programadora.png" alt="Ilustración de desarrollo frontend y marketing digital" loading="lazy">
-      </div>
+  <div class="dark-card" role="complementary" aria-hidden="true">
+    <div class="dark-card-media">
+      <img src="/Proyecto_Personal/imagenes/rueda-astros.svg" alt="rueda signos" class="dark-card-image">
+    </div>
+    <div class="dark-card-content">
+      <h3>✨ Secreto Revelado ✨</h3>
+      <p>Me encanta estudiar cartas astrales, arquetipos y cómo la simbología ayuda a la creatividad</p>
     </div>
   </div>
-</section>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <h1>Impulso marcas & construyo experiencias</h1>
+            <p class="lead">Especialista en Marketing con formación en Frontend. Mi enfoque combina estrategia y creatividad para crear experiencias digitales que conectan marcas con personas. Apasionada por la moda y la tecnología.</p>
+            <div class="cta-row">
+              <a href="#contact" class="btn primary">Contáctame</a>
+              <a href="#proyectos" class="btn outline">Ver proyectos</a>
+            </div>
+          </div>
+
+          <div class="hero-media" aria-hidden="true">
+            <img src="/Proyecto_Personal/imagenes/ilustracion-programadora.png" alt="Ilustración de desarrollo frontend y marketing digital" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="container">
+        <h2 class="section-title">Sobre mí</h2>
+
+        <div class="split about-split">
+          <div class="card about-card">
+            <h3>Hola, soy <span class="accent-name">Liuseth Pérez Clavijo</span></h3>
+            <p class="muted">Marketing Specialist & Frontend Developer. Trabajo en campañas de performance, estrategia de marca y desarrollo front‑end para transformar ideas en experiencias digitales.</p>
+
+            <ul class="meta-list">
+              <li><strong>Ubicación:</strong> Remoto / Barcelona</li>
+              <li><strong>Email:</strong> <a href="mailto:liusetha@gmail.com">liusetha@gmail.com</a></li>
+            </ul>
+
+            <div class="social-links">
+              <div class="social-icons" role="navigation" aria-label="Redes sociales">
+                <a class="social-link" href="https://www.linkedin.com/in/liusethp/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor" role="img">
+                    <path d="M4.98 3.5C4.98 4.604 4.038 5.5 2.94 5.5C1.842 5.5 0.9 4.604 0.9 3.5C0.9 2.396 1.842 1.5 2.94 1.5C4.038 1.5 4.98 2.396 4.98 3.5Z" />
+                    <path d="M0.6 8.25H5.28V23.4H0.6V8.25Z" />
+                    <path d="M8.28 8.25H12.72V10.02H12.78C13.5 9.06 14.94 8 17.22 8C21.18 8 22.2 10.56 22.2 14.16V23.4H17.52V15.18C17.52 13.5 17.46 11.34 15.06 11.34C12.6 11.34 12.06 13.14 12.06 15.06V23.4H8.28V8.25Z" />
+                  </svg>
+                </a>
+
+                <a class="social-link" href="https://github.com/liusethperez-cpu" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor" role="img">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.28 1.19-3.09-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.18 1.18a11.05 11.05 0 012.9-.39c.98 0 1.97.13 2.9.39 2.2-1.5 3.17-1.18 3.17-1.18.63 1.65.23 2.87.12 3.17.74.81 1.19 1.83 1.19 3.09 0 4.43-2.71 5.41-5.29 5.69.42.36.79 1.08.79 2.18 0 1.58-.01 2.85-.01 3.24 0 .31.21.68.8.56C20.71 21.42 24 17.1 24 12c0-6.35-5.15-11.5-12-11.5z" />
+                  </svg>
+                </a>
+
+                <a class="social-link" href="mailto:liusetha@gmail.com" aria-label="Enviar correo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor" role="img">
+                    <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card skills-compact">
+            <div class="image-container">
+              <img src="/Proyecto_Personal/imagenes/liusethPerez.jpeg" alt="Foto de Liuseth Pérez Clavijo" loading="lazy"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section projects-section">
+      <div class="container">
+        <h2 class="section-title">Proyectos Destacados</h2>
+
+        <div class="projects-grid">
+          <div class="project-card">
+            <a href="/Juego-V1/juego.html" class="project-link" aria-label="Abrir proyecto Juego RompeDudas">
+              <img src="/Proyecto_Personal/imagenes/animacion.png" alt="juego" class="project-img" loading="lazy">
+            </a>
+            <h3>Juego RompeDudas</h3>
+            <p>Hay que alcanzar pensamientos negativos y sanarlos.</p>
+            <a href="/Juego-V1/juego.html" class="btn project-btn">Ver Proyecto</a>
+          </div>
+
+          <div class="project-card">
+            <a href="/Animaciones/animacion.html" class="project-link" aria-label="Abrir proyecto Animación">
+              <img src="/Proyecto_Personal/imagenes/camara.png" alt="camara" class="project-img" loading="lazy">
+            </a>
+            <h3>Animación</h3>
+            <p>Animaciones que permiten visualizar diferentes efectos</p>
+            <a href="/Animaciones/animacion.html" class="btn project-btn">Ver Proyecto</a>
+          </div>
+
+          <div class="project-card">
+            <a href="/to-do-list/to-do.html" class="project-link" aria-label="Abrir proyecto To Do List">
+              <img src="/Proyecto_Personal/imagenes/todo.png" alt="check" class="project-img" loading="lazy">
+            </a>
+            <h3>To Do List</h3>
+            <p>Aplicación para gestionar tareas pendientes.</p>
+            <a href="/to-do-list/to-do.html" class="btn project-btn">Ver Proyecto</a>
+          </div>
+
+          <div class="project-card">
+            <a href="/Galeria/galeria.html" class="project-link" aria-label="Abrir proyecto Galería">
+              <img src="/Proyecto_Personal/imagenes/galeria.png" alt="fotos ilustracion" class="project-img" loading="lazy">
+            </a>
+            <h3>Galeria</h3>
+            <p>Una colección de imágenes e ilustraciones.</p>
+            <a href="/Galeria/galeria.html" class="btn project-btn">Ver Proyecto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video-section" class="section video-section">
+      <div class="container">
+        <h2 class="section-title">Conóceme mejor</h2>
+
+        <div class="video-container">
+          <div class="video-wrapper">
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/C5U_SXs2ZMw?rel=0" allowfullscreen></iframe>
+          </div>
+
+          <div class="video-meta">
+            <p class="video-desc">Dale like si te gusta</p>
+
+            <div class="video-actions">
+              <button class="btn like-btn" data-video-id="video1" aria-pressed="false">
+                <span class="like-emoji">👍</span> <span class="like-text">Me gusta</span>
+              </button>
+              <span class="like-count" aria-live="polite">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <h2 class="section-title">Contacto</h2>
+        <div class="grid split">
+          <form id="contact-form" class="card contact-form" novalidate>
+            <label for="name">Nombre</label>
+            <input id="name" name="name" required placeholder="Tu nombre" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="tu@correo.com" />
+
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Cuéntame sobre tu proyecto"></textarea>
+
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Enviar</button>
+              <button class="btn outline" type="reset">Limpiar</button>
+            </div>
+            <p id="form-status" class="muted" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-    <footer class="site-footer" role="contentinfo">
-        <div class="footer-inner">
-        <p>&copy; 2025 Liuseth Pérez. Todos los derechos reservados.</p>
-        </div>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p>&copy; 2025 Liuseth Pérez. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
   <script src="landing.js" defer></script>
-  <script src="toggle-theme.js" defer></script>
 </body>
 </html>
